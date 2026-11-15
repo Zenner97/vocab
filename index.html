@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#797bdc">
+  <meta name="description" content="Интерактивный тренажёр словообразования ОГЭ: учи слова, запоминай перевод и тренируй задания на предложениях.">
+  <title>WordUp — словообразование ОГЭ</title>
+  
+  <style>:root{--purple:#7b7cdb;--purple-dark:#6869ca;--purple-pale:#ededff;--yellow:#ffda38;--ink:#26273f;--muted:#8d8e9f;--border:#ebeaf0;--surface:#fff;--back:#f8f8fb;--shadow:0 15px 55px rgba(50,45,105,.055);--round:24px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--back);color:var(--ink);font-family:'Nunito Sans','Segoe UI',system-ui,sans-serif;font-size:14px;-webkit-font-smoothing:antialiased}
+button,input{font:inherit}button{cursor:pointer}button:disabled{opacity:.54;cursor:default}a{text-decoration:none;color:inherit}img{max-width:100%;display:block}*:focus-visible{outline:3px solid #f5b81c;outline-offset:3px}
+.app-shell{min-height:100vh;display:flex;max-width:1850px;margin:auto;background:var(--back)}
+.sidebar{width:248px;flex:none;background:#fff;padding:37px 20px 24px 26px;display:flex;flex-direction:column;min-height:100vh;border-right:1px solid #f0f0f5;position:sticky;top:0;height:100vh}
+.brand{display:flex;align-items:center;gap:11px;margin:0 0 57px 6px}
+.brand-symbol{display:grid;place-items:center;height:43px;width:43px;border-radius:14px;background:var(--purple);color:#fff;font-size:27px;font-weight:900;position:relative;transform:rotate(-7deg);box-shadow:3px 4px 0 #d6d3fd}.brand-symbol span{transform:rotate(7deg)}.brand-symbol i{position:absolute;color:var(--yellow);right:-8px;top:-11px;font-size:20px;transform:rotate(10deg)}
+.brand-name{font-size:24px;font-weight:900;letter-spacing:-1.45px;line-height:1}.brand-name>span{color:var(--purple)}.brand-name small{display:block;color:var(--muted);font-size:9px;letter-spacing:1px;font-weight:800;margin-top:8px}
+.nav-label{font-size:10px;color:#b7b7c3;font-weight:900;letter-spacing:2px;margin-left:19px;margin-bottom:14px}.nav-label-secondary{margin-top:36px}
+.sidebar-nav{display:flex;flex-direction:column;gap:7px}.nav-item{display:flex;gap:15px;align-items:center;width:100%;border:0;background:transparent;border-radius:15px;color:#737589;font-weight:800;padding:13px 14px;text-align:left;transition:background .17s,color .17s}.nav-item:hover{background:#f5f5fb}.nav-item.active{background:#ebebff;color:#6e6fd1}.nav-emoji{font-size:23px;line-height:1;display:grid;place-items:center;width:25px;color:inherit;font-weight:700}
+.sidebar-bottom{margin-top:auto;background:#f0efff;border-radius:20px;padding:18px 17px 17px;position:relative;overflow:hidden}.sidebar-bottom::after{content:'✳';position:absolute;right:-17px;bottom:-28px;font-size:100px;color:#e1dfff;transform:rotate(15deg)}.sidebar-bottom>*{position:relative;z-index:1}.sidebar-bottom strong{font-weight:900;line-height:1.45;font-size:15px}.sidebar-bottom p{font-size:12px;color:#8e8bab;line-height:1.6;margin:9px 0 0;max-width:160px}.mini-sticker{height:56px;display:flex;justify-content:space-between;align-items:flex-start}.sticker-emoji{font-size:34px}.mini-badge{border-radius:100px;background:#fff;padding:6px 8px;font-size:10px;font-weight:900;color:#7975d4}.sidebar-credit{font-size:10px;text-align:center;color:#bcbac5;margin:18px 0 0}
+.workspace{flex:1;min-width:0;padding:29px clamp(20px,3vw,47px) 20px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:37px}.topbar-text{display:grid;gap:6px}.eyebrow{color:#a4a2b1;letter-spacing:2.1px;font-size:9px;font-weight:900}.topbar-title{font-weight:900;font-size:17px}.topbar-title span{color:#e3b62f}.topbar-actions{display:flex;align-items:center;gap:12px}.global-search{height:46px;background:#fff;border:1px solid var(--border);display:flex;align-items:center;gap:8px;border-radius:14px;padding:0 16px;color:#a7a4b2;min-width:220px}.global-search>span{font-size:25px;line-height:1;transform:translateY(-2px)}.global-search input{border:0;background:transparent;outline:none;width:100%;color:var(--ink);font-size:12px}.global-search input::placeholder{color:#b7b5c3}.profile-chip{border:0;background:#fff;border-radius:13px;padding:4px 10px 4px 5px;height:46px;display:flex;gap:8px;align-items:center;font-size:12px;font-weight:800;white-space:nowrap}.profile-avatar{display:grid;place-items:center;background:#fff1e9;border-radius:10px;width:36px;height:36px;font-size:22px}.profile-arrow{font-size:23px;color:#bab8c9}
+.content-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,300px);gap:29px;align-items:start}.main-content{min-width:0}.right-rail{min-width:0}.site-footer{padding:35px 0 0;color:#bab9c5;text-align:center;font-size:11px}.mobile-nav{display:none}
+.section-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:30px 0 16px}.section-heading h2,.page-heading h1{margin:0;letter-spacing:-.65px;font-weight:900}.section-heading h2{font-size:19px}.section-heading button,.text-link{border:0;background:none;color:#9693a5;font-size:12px;padding:5px;font-weight:800}.section-heading button:hover,.text-link:hover{color:var(--purple)}
+.greeting{font-size:14px;color:#8b8b9a;margin:0 0 12px}.welcome-title{font-size:clamp(25px,2.45vw,36px);line-height:1.22;font-weight:900;letter-spacing:-1.5px;margin:0 0 22px}.welcome-title .marker{position:relative}.welcome-title .marker:after{content:'';position:absolute;z-index:-1;bottom:0;left:1%;width:100%;height:10px;border-radius:15px;background:#ffdd65}
+.hero{position:relative;min-height:276px;border-radius:26px;background:var(--purple);overflow:hidden;padding:33px 31px;display:flex;box-shadow:var(--shadow);color:#fff}.hero::before,.hero::after{content:'';position:absolute;border:1px solid rgba(255,255,255,.2);border-radius:50%;pointer-events:none}.hero::before{width:280px;height:280px;right:-80px;top:-190px}.hero::after{width:400px;height:400px;right:-170px;top:-250px}.hero-copy{position:relative;z-index:2;max-width:57%}.hero-pill{border:1px solid rgba(255,255,255,.5);border-radius:20px;display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:900;padding:7px 10px;letter-spacing:.25px}.hero h2{font-size:clamp(23px,2.3vw,34px);line-height:1.18;letter-spacing:-.9px;font-weight:900;margin:18px 0 8px}.hero p{font-size:12px;line-height:1.65;opacity:.92;max-width:310px;margin:0 0 19px}.hero-art{position:absolute;right:-12px;bottom:-12px;width:50%;max-height:100%;object-fit:contain;object-position:bottom;z-index:1;filter:drop-shadow(0 12px 8px rgba(39,30,100,.1))}.btn{border:0;display:inline-flex;align-items:center;justify-content:center;gap:9px;background:#fff;color:var(--ink);border-radius:15px;padding:12px 20px;font-weight:900;font-size:12px;transition:transform .13s,box-shadow .13s}.btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 5px 12px rgba(30,26,80,.13)}.btn-yellow{background:var(--yellow)}.btn-purple{background:var(--purple);color:#fff}.btn-ghost{background:#f2f1f8}.btn-outline{background:transparent;border:1px solid #deddee;color:#6a69b7}.btn-large{padding:15px 22px;font-size:13px}.btn-wide{width:100%}.btn>span:last-child{font-size:17px}.tiny-link{border:0;background:transparent;color:#9c99b1;font-weight:800;font-size:12px}
+.quick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.quick-card{text-align:left;background:#fff;border:1px solid #f0eff4;border-radius:20px;padding:18px 15px 17px;min-height:177px;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start;box-shadow:0 6px 22px rgba(40,40,80,.028);transition:transform .16s,box-shadow .16s}.quick-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}.quick-emoji{width:51px;height:51px;border-radius:15px;display:grid;place-items:center;font-size:29px;margin-bottom:17px}.quick-card.purple .quick-emoji{background:#e9e7ff}.quick-card.yellow .quick-emoji{background:#fff5ca}.quick-card.blue .quick-emoji{background:#e5f4ff}.quick-card strong{font-size:15px;font-weight:900}.quick-card small{display:block;color:#9696a6;margin-top:5px;font-size:11px;line-height:1.5;max-width:145px}.quick-arrow{position:absolute;right:16px;bottom:14px;color:#b6b5c5;font-size:23px}.quick-card::after{content:'✳';font-size:60px;right:-24px;top:-25px;color:#f4f4fb;position:absolute;z-index:0}.quick-card>*{z-index:1}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 16px}.chip{background:#fff;border:1px solid #eaeaf1;border-radius:999px;padding:8px 17px;color:#676779;font-size:11px;font-weight:800;white-space:nowrap}.chip.active{background:var(--yellow);border-color:#e2c02b;color:#2c2837}.chip:hover{border-color:#b3b0ed}.chip-count{color:#b7b7c1;font-size:11px;font-weight:700;margin-left:3px}
+.family-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.family-card{background:#fff;border:1px solid #efedf3;border-radius:19px;min-height:157px;padding:16px;position:relative;display:flex;flex-direction:column;transition:box-shadow .15s,transform .15s}.family-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}.family-card-header{display:flex;align-items:start;justify-content:space-between;gap:9px}.family-name{font-size:20px;font-weight:900;letter-spacing:-.6px;margin:0}.family-ru{font-size:11px;color:#9392a2;margin:4px 0 13px}.small-round{width:31px;height:31px;border-radius:50%;border:1px solid #eeeeef;color:#8d88c1;background:#fff;display:grid;place-items:center;font-size:20px;flex-shrink:0}.family-tags{display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-top:auto}.word-tag{background:#f5f4ff;color:#7772be;border-radius:8px;padding:5px 7px;font-size:10px;font-weight:800}.word-tag.yellow{background:#fff6cf;color:#a08819}.word-tag.more{background:#f8f8fa;color:#9a97a7}.muted{color:#9291a3}.empty-state{border:1px dashed #d4d0df;border-radius:19px;padding:35px;text-align:center;color:#9893ac;background:#fff}.empty-state b{display:block;color:#444357;font-size:18px;margin-bottom:7px}
+.rail-panel{border-radius:23px;background:#fff;border:1px solid #f0eff4;padding:20px;margin-bottom:15px}.rail-intro{background:#7d7dda;color:white;border:0;padding:20px;border-radius:25px 25px 17px 17px;position:relative;overflow:hidden}.rail-intro::after{content:'✦';font-size:90px;position:absolute;right:-12px;top:-41px;color:rgba(255,255,255,.11)}.rail-greeting{font-size:12px;opacity:.83}.rail-intro h3{font-size:23px;line-height:1.2;margin:7px 0 19px;letter-spacing:-.6px;font-weight:900;position:relative;z-index:1}.rail-streak{background:var(--yellow);border:2px solid #282438;color:#342a39;border-radius:18px;padding:13px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px}.rail-streak small{font-size:10px;display:block;font-weight:700}.rail-streak strong{font-weight:900;font-size:21px}.rail-streak .fire{font-size:30px}.rail-title{font-size:14px;font-weight:900;margin:0 0 15px}.rail-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}.rail-stat{display:flex;align-items:center;gap:8px;background:#f7f7fa;border-radius:14px;padding:12px 9px}.rail-stat-icon{font-size:23px}.rail-stat small{display:block;color:#a4a2b1;font-size:9px}.rail-stat b{font-size:16px;font-weight:900}.rail-meta{display:flex;justify-content:space-between;font-size:11px;color:#9b99a9;margin-bottom:8px}.rail-meta strong{color:#58566c}.progress-track{height:15px;background:#f0f0f3;border-radius:100px;overflow:hidden}.progress-fill{height:100%;background:var(--purple);border-radius:100px;min-width:0;transition:width .25s}.rail-sub{color:#aaa8b4;font-size:11px;margin:9px 0 0}.badges-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.badge-item{text-align:center}.badge-shape{width:56px;height:56px;background:#f1effc;border:2px solid #dcd7f9;border-radius:17px 17px 21px 21px;margin:0 auto 6px;display:grid;place-items:center;font-size:27px;transform:rotate(-4deg)}.badge-item.locked .badge-shape{filter:grayscale(1);opacity:.43}.badge-item small{font-size:10px;line-height:1.3;color:#4b4b5d;display:block;font-weight:800}.daily-goal{margin-top:18px;padding:15px;border-radius:17px;background:#fff9e2}.daily-goal-top{display:flex;justify-content:space-between;align-items:center;font-weight:800;margin-bottom:10px;font-size:11px}.daily-progress{background:#e9dfb7;height:9px}.daily-progress .progress-fill{background:#ffc833}.rail-note{display:flex;align-items:flex-start;gap:12px;font-size:11px;line-height:1.5;color:#a19fae;padding:10px 3px}.rail-note span{font-size:23px}
+.page-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;margin-bottom:22px}.page-heading .kicker{font-size:11px;font-weight:900;letter-spacing:1.8px;color:#8b89cc;display:block;margin-bottom:9px}.page-heading h1{font-size:clamp(25px,2.6vw,34px);line-height:1.2}.page-heading p{color:#9c9aab;font-size:12px;line-height:1.7;max-width:450px;margin:9px 0 0}.back-button{border:1px solid #e9e8ef;background:white;border-radius:13px;width:42px;height:42px;display:grid;place-items:center;font-size:27px;color:#8985ae;flex-shrink:0}
+.study-card{min-height:425px;background:var(--purple);border-radius:25px;padding:28px;color:white;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transition:background .2s}.study-card::before{content:'✳';position:absolute;right:-14px;top:-72px;font-size:200px;color:rgba(255,255,255,.055)}.study-card::after{content:'✦';position:absolute;left:24px;bottom:-50px;font-size:140px;color:rgba(255,255,255,.045)}.study-label{font-size:11px;text-transform:uppercase;font-weight:900;letter-spacing:2px;opacity:.72;position:relative}.study-word{font-size:clamp(37px,5vw,63px);font-weight:900;letter-spacing:-2.5px;margin:18px 0 8px;position:relative;word-break:break-word}.study-phonetic{color:#e9e7ff;font-size:12px;font-weight:800;opacity:.8}.study-reveal{background:white;color:#544f8e;border-radius:16px;padding:13px 21px;font-size:15px;font-weight:900;border:0;margin-top:23px;position:relative}.study-translation{font-size:26px;font-weight:900;margin:12px 0 0;position:relative}.study-helper{position:absolute;bottom:20px;left:25px;right:25px;opacity:.7;font-size:10px}.study-counter{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;color:#8987a0;font-size:12px;font-weight:800}.seg-progress{display:flex;gap:4px;max-width:280px;flex:1;margin-left:18px}.seg-progress span{height:7px;background:#e7e4f1;border-radius:15px;flex:1}.seg-progress span.done{background:#7a7cda}.study-controls{display:flex;gap:10px;justify-content:center;margin-top:18px}.study-controls .btn{min-width:160px}.family-context{background:#fff;border-radius:19px;padding:20px;margin-top:19px;border:1px solid var(--border)}.family-context h3{font-size:13px;margin:0 0 13px}.family-forms{display:flex;flex-wrap:wrap;gap:8px}.family-form{background:#f6f5fb;padding:8px 11px;border-radius:12px;font-size:12px;color:#676479}.family-form strong{color:#443e81}
+.quiz-card{background:var(--purple);border-radius:25px;padding:28px 27px 25px;color:#fff;min-height:535px;display:flex;flex-direction:column;position:relative;overflow:hidden}.quiz-card::before{content:'✳';position:absolute;font-size:175px;top:-105px;right:-55px;color:rgba(255,255,255,.075)}.quiz-topline{display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:900;position:relative}.quiz-topline .muted-white{opacity:.76}.quiz-segments{display:flex;gap:4px;margin-top:15px;position:relative}.quiz-segments span{height:9px;flex:1;border-radius:100px;background:#9999df;border:1px solid rgba(255,255,255,.09)}.quiz-segments span.active{background:#fff}.quiz-segments span.done{background:var(--yellow)}.quiz-card-inner{flex:1;display:flex;flex-direction:column;justify-content:center;position:relative}.quiz-icon{font-size:42px;margin:21px 0 9px}.quiz-prompt{color:#dedcff;font-size:12px;font-weight:800;margin-bottom:11px}.quiz-question{font-weight:900;font-size:clamp(23px,3vw,32px);line-height:1.32;letter-spacing:-.8px;margin:0}.quiz-question .blank{border-bottom:3px solid var(--yellow);color:#fff9ad;min-width:74px;display:inline-block}.quiz-root{margin-top:18px;display:inline-flex;align-self:flex-start;border:1px solid rgba(255,255,255,.35);border-radius:11px;padding:9px 13px;font-weight:900;letter-spacing:1px;font-size:15px;background:rgba(255,255,255,.07)}.quiz-translation{font-size:12px;opacity:.78;margin:13px 0 0}.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:22px 0}.answer-option{padding:13px 12px;border:2px solid transparent;text-align:left;border-radius:15px;background:#fff;color:#303047;min-height:61px;font-size:13px;font-weight:900;transition:transform .12s,border-color .12s;overflow-wrap:anywhere}.answer-option:hover:not(:disabled){transform:translateY(-2px)}.answer-option.correct{background:#e1fbdf;border-color:#54ad5c;color:#1b703c}.answer-option.wrong{background:#ffe5e8;border-color:#db5f7a;color:#9a2741}.answer-option:disabled{opacity:1}.answer-option .letter{color:#8d8da2;margin-right:7px;font-size:11px}.feedback{border-radius:13px;padding:11px 13px;background:rgba(255,255,255,.17);line-height:1.5;font-size:12px;margin-top:3px}.feedback.correct{background:#e2f8de;color:#296c3b}.feedback.wrong{background:#fff0d6;color:#7b4726}.quiz-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:19px;gap:10px;position:relative}.quiz-bottom .btn{min-width:125px}.quiz-score{font-size:11px;opacity:.8;font-weight:800}.answer-form{display:flex;gap:8px;margin-top:26px}.answer-input{width:100%;min-width:0;border:2px solid rgba(255,255,255,.64);background:#fff;border-radius:14px;padding:14px 15px;color:#2a2944;outline:none;font-size:16px;font-weight:800}.answer-input::placeholder{color:#b4b2c4;font-weight:600}.answer-input:disabled{background:#f1f0fa}.answer-form .btn{white-space:nowrap}.quiz-hint{font-size:11px;opacity:.7;margin-top:12px}.sentence-answer{display:inline-block;min-width:100px;border-bottom:2px solid var(--yellow);color:#fff0a8}
+.mode-switch{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:20px}.mode-switch .chip{padding:10px 18px}.mode-lead{background:#fff;border-radius:20px;padding:18px 21px;display:flex;align-items:center;gap:14px;margin-bottom:16px;border:1px solid var(--border)}.mode-lead>span{font-size:30px}.mode-lead strong{font-weight:900;display:block;font-size:14px}.mode-lead small{font-size:11px;color:#9694a4}
+.quiz-result{background:#fff;border:1px solid #eeecf6;border-radius:25px;padding:49px 28px;text-align:center}.result-emoji{font-size:64px}.quiz-result h2{font-weight:900;font-size:28px;margin:16px 0 8px}.quiz-result p{color:#9896a6;font-size:13px;line-height:1.65;max-width:400px;margin:0 auto 24px}.result-score{font-size:52px;color:var(--purple);font-weight:900}.result-score span{font-size:20px;color:#b4b1c6}.result-actions{display:flex;gap:11px;justify-content:center;flex-wrap:wrap}
+.dictionary-tools{display:flex;align-items:center;gap:10px;margin:18px 0 14px}.dictionary-search{width:100%;border:1px solid #eceaf3;background:white;border-radius:15px;padding:13px 17px;outline:none;color:#383749}.dictionary-search:focus{border-color:#8d8de1}.dictionary-stats{font-size:11px;color:#a3a0b0;font-weight:800;margin:0 0 14px}.load-more{display:flex;margin:24px auto 6px}.dictionary-note{font-size:11px;line-height:1.7;color:#a6a4b4;margin-top:20px}
+.progress-hero{background:var(--purple);border-radius:24px;display:flex;align-items:center;justify-content:space-between;color:#fff;padding:28px;gap:14px;margin-bottom:18px}.progress-hero .super-label{font-size:11px;letter-spacing:2px;font-weight:900;opacity:.8}.progress-hero h2{font-size:28px;line-height:1.15;margin:11px 0 7px}.progress-hero p{font-size:12px;opacity:.78;margin:0}.progress-hero .trophy{font-size:68px}.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.stat-block{background:#fff;border:1px solid var(--border);border-radius:19px;padding:19px;min-height:128px}.stat-icon{font-size:27px}.stat-value{font-size:27px;font-weight:900;margin:9px 0 4px}.stat-name{font-size:11px;color:#9694a4;font-weight:800}.big-progress{background:#fff;border:1px solid var(--border);border-radius:20px;padding:21px;margin-top:15px}.big-progress h3{font-size:15px;margin:0 0 11px}.big-progress p{color:#9794a4;font-size:12px}.badges-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.badge-tile{background:#fff;border:1px solid var(--border);border-radius:18px;padding:18px 10px;text-align:center;display:flex;flex-direction:column;align-items:center}.badge-tile .badge-shape{width:64px;height:64px;font-size:30px}.badge-tile.locked{opacity:.5;filter:grayscale(1)}.badge-tile strong{font-size:12px;margin:8px 0 3px}.badge-tile small{font-size:10px;color:#9996ab;line-height:1.5}.privacy-note{border-radius:19px;padding:17px;background:#f0efff;color:#6f6c99;font-size:12px;line-height:1.7;margin-top:18px}.reset-btn{border:0;background:none;padding:12px 0;color:#c18488;font-size:12px;cursor:pointer;text-decoration:underline}
+.loading{background:#fff;padding:32px;border-radius:20px;color:#9d98b8}.toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,30px);background:#302e4b;color:#fff;border-radius:14px;padding:12px 18px;box-shadow:0 12px 30px #24213d2e;font-weight:800;font-size:12px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50}.toast.visible{opacity:1;transform:translate(-50%,0)}
+@media(max-width:1330px){.sidebar{width:217px;padding-left:17px;padding-right:15px}.workspace{padding-left:25px;padding-right:25px}.content-grid{grid-template-columns:minmax(0,1fr) 245px;gap:19px}.rail-panel{padding:15px}.rail-intro{padding:17px}.hero{padding:28px 25px}.hero-art{width:49%}}
+@media(max-width:1130px){.content-grid{grid-template-columns:1fr}.right-rail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.right-rail .rail-panel{margin-bottom:0}.right-rail .rail-intro{grid-column:1/-1}.right-rail .rail-note{grid-column:1/-1}.hero{min-height:290px}.hero-copy{max-width:65%}.hero-art{max-width:330px}}
+@media(max-width:760px){.sidebar{display:none}.workspace{padding:20px 17px 97px;width:100%}.topbar{margin-bottom:22px}.topbar-text .eyebrow{font-size:9px}.topbar-title{font-size:14px}.topbar-actions{gap:4px}.global-search{min-width:42px;width:42px;padding:0 10px;border-radius:12px;transition:width .2s}.global-search:focus-within{width:155px}.global-search input{width:100%;min-width:0}.global-search input::placeholder{color:transparent}.profile-chip{padding:4px;height:42px}.profile-chip>span:not(.profile-avatar){display:none}.profile-avatar{height:35px;width:35px}.site-footer{font-size:10px}.mobile-nav{position:fixed;display:flex;bottom:0;left:0;width:100%;height:73px;background:#fff;border-top:1px solid #f1eff5;z-index:30;padding:7px 7px max(7px,env(safe-area-inset-bottom));justify-content:space-around;box-shadow:0 -8px 30px #2e2b4b0a}.mobile-nav button{min-width:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:0;background:none;color:#9c9bad;font-weight:800}.mobile-nav button span{font-size:23px;line-height:1}.mobile-nav button small{font-size:9px}.mobile-nav button.active{color:var(--purple)}.content-grid{gap:22px}.hero{min-height:283px}.welcome-title{font-size:27px}.hero h2{font-size:25px}.quick-grid{gap:9px}.quick-card{min-height:160px;padding:14px 11px}.quick-card strong{font-size:12px}.quick-card small{font-size:10px}.quick-emoji{width:44px;height:44px;font-size:24px}.right-rail{grid-template-columns:1fr 1fr}.rail-note{grid-column:1/-1}.toast{bottom:90px}}
+@media(max-width:510px){.hero{padding:23px 20px;min-height:305px}.hero-copy{max-width:74%}.hero-art{width:63%;right:-67px;bottom:-10px;opacity:.96}.hero h2{font-size:23px}.hero p{max-width:210px;font-size:11px}.hero-pill{font-size:9px}.btn{padding:12px 16px}.quick-grid{grid-template-columns:1fr 1fr;gap:10px}.quick-card{min-height:147px}.quick-card:last-child{grid-column:1/-1;min-height:101px;flex-direction:row;align-items:center;gap:15px}.quick-card:last-child .quick-emoji{margin-bottom:0}.family-grid{grid-template-columns:1fr}.right-rail{display:flex;flex-direction:column}.right-rail>*{width:100%}.rail-stats{grid-template-columns:1fr 1fr}.stats-grid{grid-template-columns:1fr 1fr}.badges-grid{grid-template-columns:repeat(2,1fr)}.study-card{min-height:385px}.study-word{font-size:38px}.study-controls .btn{min-width:0;flex:1}.quiz-card{min-height:505px;padding:21px 18px}.quiz-question{font-size:23px}.options{grid-template-columns:1fr 1fr;gap:8px}.answer-option{font-size:12px;min-height:62px}.answer-form{flex-direction:column}.answer-form .btn{width:100%}.result-actions .btn{width:100%}.topbar-title{max-width:200px}.progress-hero .trophy{font-size:48px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+  
+  
+  
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Главное меню">
+      <a class="brand" href="#home" aria-label="WordUp — главная">
+        <span class="brand-symbol"><span>W</span><i>✦</i></span>
+        <span class="brand-name">word<span>up.</span><small>learn • play • grow</small></span>
+      </a>
+      <div class="nav-label">МЕНЮ</div>
+      <nav class="sidebar-nav" id="sidebarNav">
+        <button class="nav-item active" data-view="home"><span class="nav-emoji">⌂</span> Главная</button>
+        <button class="nav-item" data-view="learn"><span class="nav-emoji">▣</span> Карточки</button>
+        <button class="nav-item" data-view="translate"><span class="nav-emoji">◈</span> Переводы</button>
+        <button class="nav-item" data-view="sentences"><span class="nav-emoji">✎</span> Предложения</button>
+        <button class="nav-item" data-view="dictionary"><span class="nav-emoji">▤</span> Словарь</button>
+      </nav>
+      <div class="nav-label nav-label-secondary">ЛИЧНЫЙ КАБИНЕТ</div>
+      <nav class="sidebar-nav">
+        <button class="nav-item" data-view="progress"><span class="nav-emoji">◷</span> Мой прогресс</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="mini-sticker"><span class="sticker-emoji">🎯</span><span class="mini-badge">ОГЭ 2027</span></div>
+        <strong>Маленькие шаги.<br>Большие результаты!</strong>
+        <p>По 10 минут в день — и ты уже ближе к своей цели.</p>
+      </div>
+      <div class="sidebar-credit">Сделано для тех, кто учит ✳</div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div class="topbar-text"><span class="eyebrow">ТВОЁ ПРОСТРАНСТВО ДЛЯ РОСТА</span><span class="topbar-title">Английский без зубрёжки <span>✳</span></span></div>
+        <div class="topbar-actions">
+          <label class="global-search" aria-label="Поиск слова"><span aria-hidden="true">⌕</span><input id="globalSearch" type="search" placeholder="Найти слово..." autocomplete="off"></label>
+          <button class="profile-chip" data-view="progress" title="Мой прогресс"><span class="profile-avatar">🧑‍🎓</span><span>Мой прогресс</span><span class="profile-arrow">›</span></button>
+        </div>
+      </header>
+      <div class="content-grid">
+        <main class="main-content" id="mainView" tabindex="-1"><div class="loading">Загружаем твои слова…</div></main>
+        <aside class="right-rail" id="rightRail" aria-label="Достижения и прогресс"></aside>
+      </div>
+      <footer class="site-footer">WordUp · Тренажёр словообразования ОГЭ · Все результаты хранятся только в твоём браузере</footer>
+    </div>
+  </div>
+  <nav class="mobile-nav" aria-label="Мобильное меню">
+    <button data-view="home"><span>⌂</span><small>Главная</small></button>
+    <button data-view="learn"><span>▣</span><small>Учить</small></button>
+    <button data-view="translate"><span>◈</span><small>Перевод</small></button>
+    <button data-view="sentences"><span>✎</span><small>Практика</small></button>
+    <button data-view="dictionary"><span>▤</span><small>Словарь</small></button>
+  </nav>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+window.WORD_FAMILIES = [{"id":1,"root":"ability","ru":"способность","forms":[{"en":"ability","ru":"способность"},{"en":"disability","ru":"ограничение возможностей"}]},{"id":2,"root":"absolute","ru":"абсолютный","forms":[{"en":"absolute","ru":"абсолютный"},{"en":"absolutely","ru":"абсолютно"}]},{"id":3,"root":"actual","ru":"фактический","forms":[{"en":"actual","ru":"фактический"},{"en":"actually","ru":"на самом деле"}]},{"id":4,"root":"advertise","ru":"рекламировать","forms":[{"en":"advertise","ru":"рекламировать"},{"en":"advertisement","ru":"реклама"}]},{"id":5,"root":"agree","ru":"соглашаться","forms":[{"en":"agree","ru":"соглашаться"},{"en":"agreement","ru":"соглашение"},{"en":"disagree","ru":"не соглашаться"},{"en":"disagreement","ru":"разногласие"}]},{"id":6,"root":"amaze","ru":"удивлять","forms":[{"en":"amaze","ru":"удивлять"},{"en":"amazing","ru":"удивительный"}]},{"id":7,"root":"appear","ru":"появляться","forms":[{"en":"appear","ru":"появляться"},{"en":"appearance","ru":"внешность"},{"en":"disappear","ru":"исчезать"}]},{"id":8,"root":"approve","ru":"одобрять","forms":[{"en":"approve","ru":"одобрять"},{"en":"approval","ru":"одобрение"},{"en":"disapprove","ru":"не одобрять"}]},{"id":9,"root":"arrive","ru":"прибывать","forms":[{"en":"arrive","ru":"прибывать"},{"en":"arrival","ru":"прибытие"}]},{"id":10,"root":"art","ru":"искусство","forms":[{"en":"art","ru":"искусство"},{"en":"artistic","ru":"художественный"},{"en":"artist","ru":"художник"}]},{"id":11,"root":"attract","ru":"привлекать","forms":[{"en":"attract","ru":"привлекать"},{"en":"attraction","ru":"достопримечательность"},{"en":"attractive","ru":"привлекательный"}]},{"id":12,"root":"bank","ru":"банк","forms":[{"en":"bank","ru":"банк"},{"en":"banker","ru":"банкир"}]},{"id":13,"root":"base","ru":"основа","forms":[{"en":"base","ru":"основа"},{"en":"basic","ru":"основной"}]},{"id":14,"root":"beauty","ru":"красота","forms":[{"en":"beauty","ru":"красота"},{"en":"beautiful","ru":"красивый"},{"en":"beautifully","ru":"красиво"}]},{"id":15,"root":"begin","ru":"начинать","forms":[{"en":"begin","ru":"начинать"},{"en":"beginner","ru":"новичок"},{"en":"beginning","ru":"начало"}]},{"id":16,"root":"bore","ru":"наскучивать","forms":[{"en":"bore","ru":"наскучивать"},{"en":"bored","ru":"скучающий"},{"en":"boring","ru":"скучный"}]},{"id":17,"root":"building","ru":"здание","forms":[{"en":"building","ru":"здание"},{"en":"build","ru":"строить"}]},{"id":18,"root":"care","ru":"забота","forms":[{"en":"care","ru":"забота"},{"en":"careful","ru":"осторожный"},{"en":"careless","ru":"небрежный"}]},{"id":19,"root":"celebrate","ru":"праздновать","forms":[{"en":"celebrate","ru":"праздновать"},{"en":"celebration","ru":"празднование"}]},{"id":20,"root":"champion","ru":"чемпион","forms":[{"en":"champion","ru":"чемпион"},{"en":"championship","ru":"чемпионат"}]},{"id":21,"root":"change","ru":"менять","forms":[{"en":"change","ru":"менять"},{"en":"changeable","ru":"изменчивый"}]},{"id":22,"root":"charm","ru":"очарование","forms":[{"en":"charm","ru":"очарование"},{"en":"charming","ru":"очаровательный"}]},{"id":23,"root":"cheer","ru":"ободрить","forms":[{"en":"cheer","ru":"ободрить"},{"en":"cheerful","ru":"веселый"}]},{"id":24,"root":"climb","ru":"взбираться","forms":[{"en":"climb","ru":"взбираться"},{"en":"climber","ru":"альпинист"}]},{"id":25,"root":"collect","ru":"коллекционировать","forms":[{"en":"collect","ru":"коллекционировать"},{"en":"collection","ru":"коллекция"}]},{"id":26,"root":"colour","ru":"цвет","forms":[{"en":"colour","ru":"цвет"},{"en":"colourful","ru":"красочный"},{"en":"colourless","ru":"бесцветный"}]},{"id":27,"root":"combine","ru":"комбинировать","forms":[{"en":"combine","ru":"комбинировать"},{"en":"combination","ru":"комбинация"}]},{"id":28,"root":"comfort","ru":"комфорт","forms":[{"en":"comfort","ru":"комфорт"},{"en":"comfortable","ru":"комфортный"},{"en":"uncomfortable","ru":"неудобный"}]},{"id":29,"root":"communicate","ru":"общаться","forms":[{"en":"communicate","ru":"общаться"},{"en":"communication","ru":"общение"},{"en":"communicative","ru":"общительный"}]},{"id":30,"root":"compete","ru":"соревноваться","forms":[{"en":"compete","ru":"соревноваться"},{"en":"competition","ru":"соревнование"}]},{"id":31,"root":"complete","ru":"завершать","forms":[{"en":"complete","ru":"завершать"},{"en":"completely","ru":"полностью"}]},{"id":32,"root":"connect","ru":"связывать","forms":[{"en":"connect","ru":"связывать"},{"en":"connection","ru":"связь"}]},{"id":33,"root":"create","ru":"создавать","forms":[{"en":"create","ru":"создавать"},{"en":"creativity","ru":"креативность"},{"en":"creative","ru":"творческий"},{"en":"creation","ru":"создание"}]},{"id":34,"root":"culture","ru":"культура","forms":[{"en":"culture","ru":"культура"},{"en":"cultural","ru":"культурный"}]},{"id":35,"root":"dance","ru":"танцевать","forms":[{"en":"dance","ru":"танцевать"},{"en":"dancer","ru":"танцор"}]},{"id":36,"root":"danger","ru":"опасность","forms":[{"en":"danger","ru":"опасность"},{"en":"dangerous","ru":"опасный"},{"en":"dangerously","ru":"опасно"}]},{"id":37,"root":"darkness","ru":"темнота","forms":[{"en":"darkness","ru":"темнота"},{"en":"dark","ru":"темный"}]},{"id":38,"root":"day","ru":"день","forms":[{"en":"day","ru":"день"},{"en":"daily","ru":"ежедневно"}]},{"id":39,"root":"decide","ru":"решать","forms":[{"en":"decide","ru":"решать"},{"en":"decision","ru":"решение"}]},{"id":40,"root":"definite","ru":"определённый","forms":[{"en":"definite","ru":"определённый"},{"en":"definitely","ru":"определённо"}]},{"id":41,"root":"desert","ru":"пустыня","forms":[{"en":"desert","ru":"пустыня"},{"en":"deserted","ru":"пустынный"}]},{"id":42,"root":"design","ru":"проектировать","forms":[{"en":"design","ru":"проектировать"},{"en":"designer","ru":"дизайнер"}]},{"id":43,"root":"development","ru":"развитие","forms":[{"en":"development","ru":"развитие"},{"en":"develop","ru":"развивать"}]},{"id":44,"root":"differ","ru":"различаться","forms":[{"en":"differ","ru":"различаться"},{"en":"difference","ru":"разница"},{"en":"different","ru":"различный"},{"en":"differently","ru":"различно"},{"en":"indifferent","ru":"безразличный"}]},{"id":45,"root":"direct","ru":"направлять","forms":[{"en":"direct","ru":"направлять"},{"en":"direction","ru":"направление"},{"en":"directly","ru":"прямо"}]},{"id":46,"root":"discovery","ru":"открытие","forms":[{"en":"discovery","ru":"открытие"},{"en":"discover","ru":"открывать"},{"en":"discoverer","ru":"первооткрыватель"}]},{"id":47,"root":"discuss","ru":"обсуждать","forms":[{"en":"discuss","ru":"обсуждать"},{"en":"discussion","ru":"обсуждение"}]},{"id":48,"root":"drink","ru":"пить","forms":[{"en":"drink","ru":"пить"},{"en":"drinking","ru":"питьё"}]},{"id":49,"root":"drive","ru":"водить","forms":[{"en":"drive","ru":"водить"},{"en":"driver","ru":"водитель"}]},{"id":50,"root":"easy","ru":"легкий","forms":[{"en":"easy","ru":"легкий"},{"en":"easiness","ru":"легкость"},{"en":"easily","ru":"легко"}]},{"id":51,"root":"ecology","ru":"экология","forms":[{"en":"ecology","ru":"экология"},{"en":"ecological","ru":"экологический"}]},{"id":52,"root":"educate","ru":"обучать","forms":[{"en":"educate","ru":"обучать"},{"en":"education","ru":"образование"},{"en":"educational","ru":"образовательный"}]},{"id":53,"root":"effect","ru":"эффект","forms":[{"en":"effect","ru":"эффект"},{"en":"effectiveness","ru":"эффективность"},{"en":"effective","ru":"эффективный"},{"en":"effectively","ru":"эффективно"},{"en":"ineffective","ru":"неэффективный"}]},{"id":54,"root":"electron","ru":"электрон","forms":[{"en":"electron","ru":"электрон"},{"en":"electronic","ru":"электронный"}]},{"id":55,"root":"end","ru":"конец","forms":[{"en":"end","ru":"конец"},{"en":"endless","ru":"бесконечный"}]},{"id":56,"root":"energy","ru":"энергия","forms":[{"en":"energy","ru":"энергия"},{"en":"energetic","ru":"энергичный"}]},{"id":57,"root":"england","ru":"Англия","forms":[{"en":"england","ru":"Англия"},{"en":"english","ru":"английский"}]},{"id":58,"root":"enjoy","ru":"наслаждаться","forms":[{"en":"enjoy","ru":"наслаждаться"},{"en":"enjoyment","ru":"наслаждение"},{"en":"enjoyable","ru":"приятный"}]},{"id":59,"root":"entertain","ru":"развлекать","forms":[{"en":"entertain","ru":"развлекать"},{"en":"entertainment","ru":"развлечение"}]},{"id":60,"root":"environment","ru":"окружающая среда","forms":[{"en":"environment","ru":"окружающая среда"},{"en":"environmental","ru":"экологический"}]},{"id":61,"root":"equip","ru":"оборудовать","forms":[{"en":"equip","ru":"оборудовать"},{"en":"equipment","ru":"оборудование"}]},{"id":62,"root":"especial","ru":"особенный","forms":[{"en":"especial","ru":"особенный"},{"en":"especially","ru":"особенно"}]},{"id":63,"root":"exact","ru":"точный","forms":[{"en":"exact","ru":"точный"},{"en":"exactly","ru":"точно"}]},{"id":64,"root":"excite","ru":"волновать","forms":[{"en":"excite","ru":"волновать"},{"en":"excitement","ru":"волнение"},{"en":"exciting","ru":"захватывающий"}]},{"id":65,"root":"expected","ru":"ожидаемый","forms":[{"en":"expected","ru":"ожидаемый"},{"en":"expect","ru":"ожидать"},{"en":"unexpected","ru":"неожиданный"}]},{"id":66,"root":"expense","ru":"расход","forms":[{"en":"expense","ru":"расход"},{"en":"expensive","ru":"дорогой"},{"en":"inexpensive","ru":"недорогой"}]},{"id":67,"root":"explain","ru":"объяснять","forms":[{"en":"explain","ru":"объяснять"},{"en":"explanation","ru":"объяснение"}]},{"id":68,"root":"explore","ru":"исследовать","forms":[{"en":"explore","ru":"исследовать"},{"en":"exploration","ru":"исследование"},{"en":"explorer","ru":"исследователь"}]},{"id":69,"root":"extreme","ru":"экстремальный","forms":[{"en":"extreme","ru":"экстремальный"},{"en":"extremely","ru":"экстремально"}]},{"id":70,"root":"fair","ru":"справедливый","forms":[{"en":"fair","ru":"справедливый"},{"en":"unfair","ru":"несправедливый"}]},{"id":71,"root":"fame","ru":"слава","forms":[{"en":"fame","ru":"слава"},{"en":"famous","ru":"известный"}]},{"id":72,"root":"fantasy","ru":"фантазия","forms":[{"en":"fantasy","ru":"фантазия"},{"en":"fantastic","ru":"фантастический"}]},{"id":73,"root":"farm","ru":"ферма","forms":[{"en":"farm","ru":"ферма"},{"en":"farmer","ru":"фермер"}]},{"id":74,"root":"fashion","ru":"мода","forms":[{"en":"fashion","ru":"мода"},{"en":"fashionable","ru":"модный"}]},{"id":75,"root":"favour","ru":"благосклонность","forms":[{"en":"favour","ru":"благосклонность"},{"en":"favourable","ru":"благоприятный"},{"en":"favourite","ru":"любимый"}]},{"id":76,"root":"fighter","ru":"борец","forms":[{"en":"fighter","ru":"борец"},{"en":"fight","ru":"бороться"}]},{"id":77,"root":"final","ru":"финальный","forms":[{"en":"final","ru":"финальный"},{"en":"finally","ru":"наконец"}]},{"id":78,"root":"fish","ru":"рыба","forms":[{"en":"fish","ru":"рыба"},{"en":"fishing","ru":"рыбалка"}]},{"id":79,"root":"fit","ru":"быть в форме","forms":[{"en":"fit","ru":"быть в форме"},{"en":"fitness","ru":"физическая форма"}]},{"id":80,"root":"fluent","ru":"беглый","forms":[{"en":"fluent","ru":"беглый"},{"en":"fluently","ru":"бегло"}]},{"id":81,"root":"forgettable","ru":"легко забываемый","forms":[{"en":"forgettable","ru":"легко забываемый"},{"en":"forget","ru":"забывать"},{"en":"unforgettable","ru":"незабываемый"}]},{"id":82,"root":"fortunately","ru":"к счастью","forms":[{"en":"fortunately","ru":"к счастью"},{"en":"unfortunately","ru":"к сожалению"}]},{"id":83,"root":"friend","ru":"друг","forms":[{"en":"friend","ru":"друг"},{"en":"friendly","ru":"дружелюбный"},{"en":"unfriendly","ru":"недружелюбный"},{"en":"friendship","ru":"дружба"}]},{"id":84,"root":"fun","ru":"веселье","forms":[{"en":"fun","ru":"веселье"},{"en":"funny","ru":"забавный"}]},{"id":85,"root":"garden","ru":"сад","forms":[{"en":"garden","ru":"сад"},{"en":"gardener","ru":"садовник"}]},{"id":86,"root":"geography","ru":"география","forms":[{"en":"geography","ru":"география"},{"en":"geographical","ru":"географический"}]},{"id":87,"root":"glad","ru":"радостный","forms":[{"en":"glad","ru":"радостный"},{"en":"gladly","ru":"с радостью"}]},{"id":88,"root":"govern","ru":"управлять","forms":[{"en":"govern","ru":"управлять"},{"en":"government","ru":"правительство"}]},{"id":89,"root":"happy","ru":"счастливый","forms":[{"en":"happy","ru":"счастливый"},{"en":"happiness","ru":"счастье"},{"en":"unhappy","ru":"несчастный"},{"en":"happily","ru":"счастливо"}]},{"id":90,"root":"harm","ru":"вред","forms":[{"en":"harm","ru":"вред"},{"en":"harmful","ru":"вредный"},{"en":"harmless","ru":"безвредный"}]},{"id":91,"root":"health","ru":"здоровье","forms":[{"en":"health","ru":"здоровье"},{"en":"healthy","ru":"здоровый"}]},{"id":92,"root":"help","ru":"помогать","forms":[{"en":"help","ru":"помогать"},{"en":"helpless","ru":"беспомощный"},{"en":"helpful","ru":"полезный"}]},{"id":93,"root":"home","ru":"дом","forms":[{"en":"home","ru":"дом"},{"en":"homeless","ru":"бездомный"}]},{"id":94,"root":"hunt","ru":"охотиться","forms":[{"en":"hunt","ru":"охотиться"},{"en":"hunter","ru":"охотник"}]},{"id":95,"root":"ill","ru":"больной","forms":[{"en":"ill","ru":"больной"},{"en":"illness","ru":"болезнь"}]},{"id":96,"root":"image","ru":"образ","forms":[{"en":"image","ru":"образ"},{"en":"imagine","ru":"представлять"},{"en":"imagination","ru":"воображение"},{"en":"imaginative","ru":"с богатым воображением"}]},{"id":97,"root":"immediate","ru":"немедленный","forms":[{"en":"immediate","ru":"немедленный"},{"en":"immediately","ru":"немедленно"}]},{"id":98,"root":"impress","ru":"впечатлять","forms":[{"en":"impress","ru":"впечатлять"},{"en":"impression","ru":"впечатление"},{"en":"impressive","ru":"впечатляющий"}]},{"id":99,"root":"industry","ru":"промышленность","forms":[{"en":"industry","ru":"промышленность"},{"en":"industrial","ru":"промышленный"}]},{"id":100,"root":"inform","ru":"информировать","forms":[{"en":"inform","ru":"информировать"},{"en":"information","ru":"информация"},{"en":"informative","ru":"информативный"}]},{"id":101,"root":"interest","ru":"интерес","forms":[{"en":"interest","ru":"интерес"},{"en":"interesting","ru":"интересный"}]},{"id":102,"root":"invent","ru":"изобретать","forms":[{"en":"invent","ru":"изобретать"},{"en":"invention","ru":"изобретение"},{"en":"inventor","ru":"изобретатель"}]},{"id":103,"root":"invitation","ru":"приглашение","forms":[{"en":"invitation","ru":"приглашение"},{"en":"invite","ru":"приглашать"}]},{"id":104,"root":"italy","ru":"италия","forms":[{"en":"italy","ru":"италия"},{"en":"italian","ru":"итальянский"}]},{"id":105,"root":"juice","ru":"сок","forms":[{"en":"juice","ru":"сок"},{"en":"juicy","ru":"сочный"}]},{"id":106,"root":"kind","ru":"добрый","forms":[{"en":"kind","ru":"добрый"},{"en":"kindness","ru":"доброта"}]},{"id":107,"root":"know","ru":"знать","forms":[{"en":"know","ru":"знать"},{"en":"knowledge","ru":"знания"}]},{"id":108,"root":"lead","ru":"вести","forms":[{"en":"lead","ru":"вести"},{"en":"leader","ru":"лидер"}]},{"id":109,"root":"learn","ru":"изучать","forms":[{"en":"learn","ru":"изучать"},{"en":"learner","ru":"изучающий"}]},{"id":110,"root":"like","ru":"нравиться","forms":[{"en":"like","ru":"нравиться"},{"en":"dislike","ru":"не нравиться"}]},{"id":111,"root":"locate","ru":"располагаться","forms":[{"en":"locate","ru":"располагаться"},{"en":"location","ru":"расположение"}]},{"id":112,"root":"lonely","ru":"одинокий","forms":[{"en":"lonely","ru":"одинокий"},{"en":"loneliness","ru":"одиночество"}]},{"id":113,"root":"loud","ru":"громкий","forms":[{"en":"loud","ru":"громкий"},{"en":"loudly","ru":"громко"}]},{"id":114,"root":"love","ru":"любить","forms":[{"en":"love","ru":"любить"},{"en":"lovely","ru":"прекрасный"}]},{"id":115,"root":"luck","ru":"удача","forms":[{"en":"luck","ru":"удача"},{"en":"lucky","ru":"удачливый"},{"en":"unlucky","ru":"невезучий"}]},{"id":116,"root":"main","ru":"главный","forms":[{"en":"main","ru":"главный"},{"en":"mainly","ru":"главным образом"}]},{"id":117,"root":"manage","ru":"управлять","forms":[{"en":"manage","ru":"управлять"},{"en":"manager","ru":"менеджер"}]},{"id":118,"root":"mean","ru":"означать","forms":[{"en":"mean","ru":"означать"},{"en":"meaning","ru":"значение"},{"en":"meaningful","ru":"значимый"}]},{"id":119,"root":"music","ru":"музыка","forms":[{"en":"music","ru":"музыка"},{"en":"musical","ru":"музыкальный"},{"en":"musician","ru":"музыкант"}]},{"id":120,"root":"nation","ru":"нация","forms":[{"en":"nation","ru":"нация"},{"en":"national","ru":"национальный"},{"en":"international","ru":"международный"},{"en":"nationality","ru":"национальность"}]},{"id":121,"root":"natural","ru":"естественный","forms":[{"en":"natural","ru":"естественный"},{"en":"nature","ru":"природа"},{"en":"naturally","ru":"естественно"}]},{"id":122,"root":"nerve","ru":"нервничать","forms":[{"en":"nerve","ru":"нервничать"},{"en":"nervous","ru":"нервный"}]},{"id":123,"root":"noise","ru":"шум","forms":[{"en":"noise","ru":"шум"},{"en":"noisy","ru":"шумный"}]},{"id":124,"root":"organize","ru":"организовывать","forms":[{"en":"organize","ru":"организовывать"},{"en":"organization","ru":"организация"}]},{"id":125,"root":"origin","ru":"происхождение","forms":[{"en":"origin","ru":"происхождение"},{"en":"original","ru":"оригинальный"}]},{"id":126,"root":"own","ru":"обладать","forms":[{"en":"own","ru":"обладать"},{"en":"owner","ru":"собственник"}]},{"id":127,"root":"paint","ru":"рисовать красками","forms":[{"en":"paint","ru":"рисовать красками"},{"en":"painter","ru":"художник"}]},{"id":128,"root":"patient","ru":"терпеливый","forms":[{"en":"patient","ru":"терпеливый"},{"en":"impatient","ru":"нетерпеливый"}]},{"id":129,"root":"peace","ru":"мир","forms":[{"en":"peace","ru":"мир"},{"en":"peaceful","ru":"мирный"}]},{"id":130,"root":"perfect","ru":"замечательный","forms":[{"en":"perfect","ru":"замечательный"},{"en":"perfectly","ru":"замечательно"}]},{"id":131,"root":"perform","ru":"представлять","forms":[{"en":"perform","ru":"представлять"},{"en":"performance","ru":"представление"}]},{"id":132,"root":"person","ru":"человек","forms":[{"en":"person","ru":"человек"},{"en":"personal","ru":"личный"},{"en":"personally","ru":"лично"}]},{"id":133,"root":"photographer","ru":"фотограф","forms":[{"en":"photographer","ru":"фотограф"},{"en":"photograph","ru":"фотография"}]},{"id":134,"root":"play","ru":"играть","forms":[{"en":"play","ru":"играть"},{"en":"player","ru":"игрок"}]},{"id":135,"root":"pleasant","ru":"приятный","forms":[{"en":"pleasant","ru":"приятный"},{"en":"please","ru":"радовать"},{"en":"pleasure","ru":"удовольствие"},{"en":"unpleasant","ru":"неприятный"}]},{"id":136,"root":"politics","ru":"политика","forms":[{"en":"politics","ru":"политика"},{"en":"politician","ru":"политик"}]},{"id":137,"root":"pollution","ru":"загрязнение","forms":[{"en":"pollution","ru":"загрязнение"},{"en":"pollute","ru":"загрязнять"}]},{"id":138,"root":"popular","ru":"популярный","forms":[{"en":"popular","ru":"популярный"},{"en":"popularity","ru":"популярность"}]},{"id":139,"root":"population","ru":"население","forms":[{"en":"population","ru":"население"},{"en":"populate","ru":"населять"}]},{"id":140,"root":"possible","ru":"возможный","forms":[{"en":"possible","ru":"возможный"},{"en":"possibility","ru":"возможность"},{"en":"impossible","ru":"невозможный"}]},{"id":141,"root":"power","ru":"сила, мощь","forms":[{"en":"power","ru":"сила, мощь"},{"en":"powerful","ru":"мощный"},{"en":"powerless","ru":"бессильный"}]},{"id":142,"root":"practice","ru":"практиковать","forms":[{"en":"practice","ru":"практиковать"},{"en":"practical","ru":"практический"},{"en":"practically","ru":"практически"}]},{"id":143,"root":"presentation","ru":"презентация","forms":[{"en":"presentation","ru":"презентация"},{"en":"present","ru":"презентовать"}]},{"id":144,"root":"probable","ru":"вероятный","forms":[{"en":"probable","ru":"вероятный"},{"en":"probably","ru":"вероятно"}]},{"id":145,"root":"profession","ru":"профессия","forms":[{"en":"profession","ru":"профессия"},{"en":"professional","ru":"профессиональный"}]},{"id":146,"root":"proper","ru":"надлежащий","forms":[{"en":"proper","ru":"надлежащий"},{"en":"properly","ru":"правильно"}]},{"id":147,"root":"protect","ru":"защищать","forms":[{"en":"protect","ru":"защищать"},{"en":"protection","ru":"защита"},{"en":"protective","ru":"защитный"}]},{"id":148,"root":"punish","ru":"наказывать","forms":[{"en":"punish","ru":"наказывать"},{"en":"punishment","ru":"наказание"}]},{"id":149,"root":"quick","ru":"быстрый","forms":[{"en":"quick","ru":"быстрый"},{"en":"quickly","ru":"быстро"}]},{"id":150,"root":"rain","ru":"дождь","forms":[{"en":"rain","ru":"дождь"},{"en":"rainy","ru":"дождливый"}]},{"id":151,"root":"rare","ru":"редкий","forms":[{"en":"rare","ru":"редкий"},{"en":"rarely","ru":"редко"}]},{"id":152,"root":"real","ru":"реальный","forms":[{"en":"real","ru":"реальный"},{"en":"really","ru":"реально"}]},{"id":153,"root":"reason","ru":"причина","forms":[{"en":"reason","ru":"причина"},{"en":"reasonable","ru":"разумный"},{"en":"reasonably","ru":"разумно"}]},{"id":154,"root":"recent","ru":"недавний","forms":[{"en":"recent","ru":"недавний"},{"en":"recently","ru":"недавно"}]},{"id":155,"root":"regular","ru":"регулярный","forms":[{"en":"regular","ru":"регулярный"},{"en":"regularity","ru":"регулярность"},{"en":"regularly","ru":"регулярно"},{"en":"irregular","ru":"нерегулярный"}]},{"id":156,"root":"report","ru":"докладывать","forms":[{"en":"report","ru":"докладывать"},{"en":"reporter","ru":"репортер"}]},{"id":157,"root":"response","ru":"ответ","forms":[{"en":"response","ru":"ответ"},{"en":"responsibility","ru":"ответственность"},{"en":"responsible","ru":"ответственный"}]},{"id":158,"root":"ride","ru":"ехать","forms":[{"en":"ride","ru":"ехать"},{"en":"rider","ru":"ездок"}]},{"id":159,"root":"risk","ru":"риск","forms":[{"en":"risk","ru":"риск"},{"en":"risky","ru":"рискованный"}]},{"id":160,"root":"russia","ru":"россия","forms":[{"en":"russia","ru":"россия"},{"en":"russian","ru":"русский"}]},{"id":161,"root":"safe","ru":"безопасный","forms":[{"en":"safe","ru":"безопасный"},{"en":"safety","ru":"безопасность"}]},{"id":162,"root":"science","ru":"наука","forms":[{"en":"science","ru":"наука"},{"en":"scientific","ru":"научный"},{"en":"scientist","ru":"ученый"}]},{"id":163,"root":"serious","ru":"серьезный","forms":[{"en":"serious","ru":"серьезный"},{"en":"seriously","ru":"серьезно"}]},{"id":164,"root":"sing","ru":"петь","forms":[{"en":"sing","ru":"петь"},{"en":"singer","ru":"певец"}]},{"id":165,"root":"situate","ru":"располагать","forms":[{"en":"situate","ru":"располагать"},{"en":"situation","ru":"ситуация"}]},{"id":166,"root":"skill","ru":"умение","forms":[{"en":"skill","ru":"умение"},{"en":"skilful","ru":"умелый"},{"en":"skillful","ru":"умелый"}]},{"id":167,"root":"sleep","ru":"спать","forms":[{"en":"sleep","ru":"спать"},{"en":"sleepy","ru":"сонный"}]},{"id":168,"root":"speak","ru":"говорить","forms":[{"en":"speak","ru":"говорить"}]},{"id":169,"root":"spice","ru":"пряность","forms":[{"en":"spice","ru":"пряность"},{"en":"spicy","ru":"пряный"}]},{"id":170,"root":"stress","ru":"стресс","forms":[{"en":"stress","ru":"стресс"},{"en":"stressful","ru":"стрессовый"}]},{"id":171,"root":"success","ru":"успех","forms":[{"en":"success","ru":"успех"},{"en":"successful","ru":"успешный"},{"en":"unsuccessful","ru":"неуспешный"}]},{"id":172,"root":"suggest","ru":"предлагать","forms":[{"en":"suggest","ru":"предлагать"},{"en":"suggestion","ru":"предположение"}]},{"id":173,"root":"suit","ru":"подходить","forms":[{"en":"suit","ru":"подходить"},{"en":"suitable","ru":"подходящий"}]},{"id":174,"root":"sun","ru":"солнце","forms":[{"en":"sun","ru":"солнце"},{"en":"sunny","ru":"солнечный"}]},{"id":175,"root":"support","ru":"поддерживать","forms":[{"en":"support","ru":"поддерживать"},{"en":"supporter","ru":"сторонник"}]},{"id":176,"root":"surprise","ru":"сюрприз","forms":[{"en":"surprise","ru":"сюрприз"},{"en":"surprising","ru":"удивительный"},{"en":"surprisingly","ru":"удивительно"}]},{"id":177,"root":"swim","ru":"плавать","forms":[{"en":"swim","ru":"плавать"},{"en":"swimmer","ru":"пловец"},{"en":"swimming","ru":"плавание"}]},{"id":178,"root":"symbol","ru":"символ","forms":[{"en":"symbol","ru":"символ"},{"en":"symbolize","ru":"символизировать"},{"en":"symbolic","ru":"символический"}]},{"id":179,"root":"taste","ru":"вкус","forms":[{"en":"taste","ru":"вкус"},{"en":"tasty","ru":"вкусный"},{"en":"tasteless","ru":"безвкусный"}]},{"id":180,"root":"teach","ru":"учить","forms":[{"en":"teach","ru":"учить"},{"en":"teacher","ru":"учитель"}]},{"id":181,"root":"technology","ru":"технология","forms":[{"en":"technology","ru":"технология"},{"en":"technological","ru":"технологический"}]},{"id":182,"root":"tradition","ru":"традиция","forms":[{"en":"tradition","ru":"традиция"},{"en":"traditional","ru":"традиционный"},{"en":"traditionally","ru":"традиционно"}]},{"id":183,"root":"train","ru":"тренировать","forms":[{"en":"train","ru":"тренировать"},{"en":"trainer","ru":"тренер"}]},{"id":184,"root":"translate","ru":"переводить","forms":[{"en":"translate","ru":"переводить"},{"en":"translation","ru":"перевод"}]},{"id":185,"root":"travel","ru":"путешествовать","forms":[{"en":"travel","ru":"путешествовать"},{"en":"traveller","ru":"путешественник"}]},{"id":186,"root":"turkey","ru":"Турция","forms":[{"en":"turkey","ru":"Турция"},{"en":"turkish","ru":"турецкий"}]},{"id":187,"root":"use","ru":"использовать","forms":[{"en":"use","ru":"использовать"},{"en":"user","ru":"пользователь"},{"en":"useful","ru":"полезный"},{"en":"useless","ru":"бесполезный"}]},{"id":188,"root":"usual","ru":"обычный","forms":[{"en":"usual","ru":"обычный"},{"en":"usually","ru":"обычно"},{"en":"unusual","ru":"необычный"}]},{"id":189,"root":"value","ru":"ценить","forms":[{"en":"value","ru":"ценить"},{"en":"valuable","ru":"ценный"}]},{"id":190,"root":"vary","ru":"различаться","forms":[{"en":"vary","ru":"различаться"},{"en":"variety","ru":"разнообразие"},{"en":"various","ru":"различный"}]},{"id":191,"root":"visit","ru":"посещать","forms":[{"en":"visit","ru":"посещать"},{"en":"visitor","ru":"посетитель"}]},{"id":192,"root":"wait","ru":"ждать","forms":[{"en":"wait","ru":"ждать"},{"en":"waiter","ru":"официант"}]},{"id":193,"root":"warm","ru":"теплый","forms":[{"en":"warm","ru":"теплый"},{"en":"warmly","ru":"тепло"}]},{"id":194,"root":"wealth","ru":"богатство","forms":[{"en":"wealth","ru":"богатство"},{"en":"wealthy","ru":"состоятельный"}]},{"id":195,"root":"win","ru":"выигрывать","forms":[{"en":"win","ru":"выигрывать"},{"en":"winner","ru":"победитель"}]},{"id":196,"root":"wonder","ru":"чудо","forms":[{"en":"wonder","ru":"чудо"},{"en":"wonderful","ru":"чудесный"}]},{"id":197,"root":"wood","ru":"дерево","forms":[{"en":"wood","ru":"дерево"},{"en":"wooden","ru":"деревянный"}]},{"id":198,"root":"write","ru":"писать","forms":[{"en":"write","ru":"писать"},{"en":"writer","ru":"писатель"},{"en":"writing","ru":"письмо"}]}];
+
+/* Contextual word-formation tasks based on the vocabulary in both uploaded source files. */
+const taskText = `
+danger|dangerous|It is ___ to swim in the river after heavy rain.|опасно
+success|successful|Her small business became very ___ in just two years.|успешный
+success|unsuccessful|Their first attempt was ___, but they tried again.|неудачный
+regular|regularly|My grandparents ___ go for a walk in the park.|регулярно
+regular|irregular|He has an ___ work schedule and sometimes works at night.|нерегулярный
+possible|impossible|It is ___ to finish a 300-page book in two minutes.|невозможно
+possible|possibility|There is a ___ that the match will be cancelled.|возможность
+friend|friendly|The hotel staff were incredibly ___ and helpful.|дружелюбный
+friend|friendship|Their ___ began when they were at primary school.|дружба
+care|careful|Be ___ when you cross this busy street.|осторожный
+care|careless|It was ___ of him to leave his phone on the bus.|небрежный
+luck|lucky|We were ___ to catch the last train home.|удачливый
+luck|unlucky|She was ___ and lost her keys twice in one day.|невезучий
+easy|easily|You can ___ find the museum on this map.|легко
+differ|different|My brother and I have very ___ tastes in music.|разные
+differ|difference|Can you explain the ___ between these two photos?|разница
+effect|effective|This new method is much more ___ than the old one.|эффективный
+effect|ineffective|The medicine was ___, so the doctor changed it.|неэффективный
+quick|quickly|Please finish your breakfast ___ or we'll be late.|быстро
+teach|teacher|My English ___ makes every lesson interesting.|учитель
+educate|education|Every child should have access to a good ___.|образование
+educate|educational|We watched an ___ film about the solar system.|образовательный
+wonder|wonderful|We had a ___ holiday by the sea.|замечательный
+fantasy|fantastic|The view from the mountain was absolutely ___.|фантастический
+communicate|communication|Clear ___ is important when people work in a team.|общение
+interest|interesting|The book was so ___ that I read it in one evening.|интересный
+final|finally|After three hours, we ___ arrived at the airport.|наконец
+beauty|beautiful|The lake looks especially ___ at sunset.|красивый
+beauty|beautifully|She sings so ___ that everyone stops to listen.|красиво
+end|endless|The children asked an ___ number of questions.|бесконечный
+dark|darkness|We couldn't see anything in the ___.|темнота
+invite|invitation|I received an ___ to my cousin's wedding.|приглашение
+happy|happiness|Money alone cannot buy ___.|счастье
+happy|unhappy|He looked ___ when he heard the bad news.|несчастный
+rain|rainy|We stayed indoors because it was a ___ day.|дождливый
+base|basic|We learnt the ___ rules before playing the game.|основной
+popular|popularity|The ___ of electric bikes is growing every year.|популярность
+wait|waiter|The ___ brought us the menu and some water.|официант
+nation|international|The city hosts an ___ film festival every spring.|международный
+forget|unforgettable|Our trip to the mountains was ___.|незабываемый
+day|daily|She checks her email ___ before starting work.|ежедневно
+own|owner|The ___ of the café greeted every customer.|владелец
+energy|energetic|Even after the long walk, the children were ___.|энергичный
+peace|peaceful|We spent the weekend in a quiet, ___ village.|мирный
+nerve|nervous|I always feel ___ before an important exam.|нервный
+report|reporter|The ___ asked the actor several questions.|репортёр
+fluent|fluently|After living abroad, she could speak Spanish ___.|бегло
+colour|colourful|The children made ___ posters for the festival.|красочный
+noise|noisy|The street is very ___ during the day.|шумный
+perform|performance|The band's ___ lasted almost two hours.|выступление
+love|lovely|What a ___ little garden you have!|прекрасный
+combine|combination|The ___ of music and dance made the show special.|сочетание
+probable|probably|It will ___ snow tomorrow, so take a warm coat.|вероятно
+amaze|amazing|The scientist made an ___ discovery.|удивительный
+fashion|fashionable|These shoes were very ___ ten years ago.|модный
+expect|unexpected|We got an ___ message from our old friend.|неожиданный
+hunt|hunter|The ___ followed the animal's tracks through the forest.|охотник
+fortunately|unfortunately|___, the museum was closed when we arrived.|к сожалению
+art|artist|The ___ painted a beautiful portrait of her mother.|художник
+suit|suitable|This book is ___ for children aged ten and over.|подходящий
+develop|development|The ___ of modern technology has changed our lives.|развитие
+expense|expensive|The restaurant was too ___ for our budget.|дорогой
+expense|inexpensive|We found a small, ___ hotel near the beach.|недорогой
+fame|famous|The city is ___ for its old bridges.|известный
+russia|russian|My pen friend is learning ___ at university.|русский
+extreme|extremely|The exam was ___ difficult for most students.|чрезвычайно
+industry|industrial|The town became an important ___ centre.|промышленный
+attract|attractive|The new park is especially ___ to families.|привлекательный
+equip|equipment|The school bought new sports ___ last month.|оборудование
+electron|electronic|The ticket was sent to me in ___ form.|электронный
+science|scientist|The ___ spent years studying ocean life.|учёный
+science|scientific|They carried out a ___ experiment at school.|научный
+agree|disagree|I respect your opinion, but I have to ___.|не соглашаться
+agree|agreement|We finally reached an ___ after a long discussion.|соглашение
+recent|recently|My sister has ___ moved to another city.|недавно
+discover|discovery|The ___ of a new species surprised the researchers.|открытие
+perfect|perfectly|She answered all the questions ___.|идеально
+impress|impressive|The castle looked especially ___ at night.|впечатляющий
+charm|charming|We stayed in a ___ little hotel in the countryside.|очаровательный
+wood|wooden|There is a small ___ bridge over the river.|деревянный
+skill|skilful|The ___ musician played a difficult piece without mistakes.|умелый
+inform|information|The website provides useful ___ for tourists.|информация
+real|really|I ___ enjoyed the concert last night.|действительно
+serious|seriously|The doctor asked me to take the problem ___.|серьёзно
+power|powerful|The storm was so ___ that many trees fell.|мощный
+ecology|ecological|The project aims to solve ___ problems in the region.|экологический
+tradition|traditional|We tried some ___ dishes during our trip.|традиционный
+tradition|traditionally|People ___ celebrate this holiday with their families.|традиционно
+rare|rarely|He ___ eats fast food because he prefers home cooking.|редко
+protect|protection|Wild animals need our ___.|защита
+fun|funny|The film was so ___ that we laughed all evening.|смешной
+sun|sunny|It was a warm and ___ afternoon.|солнечный
+drive|driver|The bus ___ stopped to help the passengers.|водитель
+begin|beginner|This course is perfect for a complete ___.|новичок
+taste|tasty|My grandmother makes very ___ apple pies.|вкусный
+patient|impatient|The children grew ___ while waiting for the train.|нетерпеливый
+present|presentation|Our group gave a ___ about climate change.|презентация
+reason|reasonable|I think the price is ___ for such a good phone.|разумный
+stress|stressful|Moving to a new city can be quite ___.|напряжённый
+warm|warmly|The host greeted us ___ at the door.|тепло
+help|helpful|These notes will be ___ before the test.|полезный
+help|helpless|The little kitten looked ___ in the rain.|беспомощный
+pollute|pollution|Air ___ is a serious problem in big cities.|загрязнение
+photograph|photographer|The ___ took pictures at the wedding.|фотограф
+juice|juicy|These oranges are especially sweet and ___.|сочный
+value|valuable|The necklace is ___ because it is very old.|ценный
+collect|collection|He has a large ___ of old coins.|коллекция
+complete|completely|I ___ forgot about our meeting yesterday.|полностью
+italy|italian|We ate at a small ___ restaurant near the station.|итальянский
+immediate|immediately|Please call me ___ when you arrive.|немедленно
+entertain|entertainment|The hotel offers ___ for guests of all ages.|развлечение
+imagine|imagination|Children often have a very rich ___.|воображение
+profession|professional|She hopes to become a ___ dancer.|профессиональный
+exact|exactly|Can you tell me ___ where you found it?|точно
+excite|exciting|We have some ___ news about our school trip.|захватывающий
+excite|excitement|The children shouted with ___ when they saw the presents.|волнение
+build|building|The tallest ___ in our town is a hotel.|здание
+usual|unusual|It was ___ to see snow in May.|необычный
+usual|usually|I ___ get up at seven on school days.|обычно
+fit|fitness|Regular exercise can improve your ___.|физическая форма
+harm|harmful|Smoking is ___ to your health.|вредный
+harm|harmless|Most butterflies are completely ___.|безвредный
+decide|decision|It was a difficult ___ to make.|решение
+health|healthy|Fruit and vegetables are part of a ___ diet.|здоровый
+person|personal|Please don't share your ___ information online.|личный
+person|personally|I ___ prefer reading books to watching TV.|лично
+geography|geographical|We studied the ___ features of our country.|географический
+explain|explanation|The teacher gave a clear ___ of the rule.|объяснение
+govern|government|The ___ announced a new education programme.|правительство
+actual|actually|I thought it was Monday, but it was ___ Tuesday.|на самом деле
+use|useful|This app is really ___ for learning new words.|полезный
+use|useless|The broken umbrella was completely ___ in the rain.|бесполезный
+appear|appearance|He was nervous about his ___ at the interview.|внешность
+appear|disappear|The sun seemed to ___ behind the clouds.|исчезать
+direct|direction|Can you show me the ___ of the nearest station?|направление
+direct|directly|The train goes ___ from Astana to Almaty.|напрямую
+situate|situation|We found ourselves in a difficult ___.|ситуация
+please|pleasant|We had a very ___ walk along the beach.|приятный
+pleasant|unpleasant|There was an ___ smell in the room.|неприятный
+absolute|absolutely|I am ___ sure that I left my keys here.|абсолютно
+explore|explorer|The brave ___ travelled across the desert.|исследователь
+explore|exploration|Space ___ is expensive but important.|исследование
+practice|practical|The course gives students ___ experience.|практический
+design|designer|The ___ created a beautiful new logo.|дизайнер
+discuss|discussion|We had a long ___ about the problem.|обсуждение
+celebrate|celebration|The ___ continued until midnight.|празднование
+compete|competition|She won first prize in the singing ___.|соревнование
+win|winner|The ___ received a gold medal.|победитель
+manage|manager|The shop ___ helped us choose a laptop.|менеджер
+ill|illness|She missed a week of school because of her ___.|болезнь
+nature|natural|This juice contains only ___ ingredients.|натуральный
+nature|naturally|He speaks English very ___.|естественно
+enjoy|enjoyable|The guided tour was interesting and ___.|приятный
+train|trainer|Our football ___ gave us useful advice.|тренер
+garden|gardener|The ___ planted roses near the entrance.|садовник
+advertise|advertisement|I saw an ___ for this job online.|реклама
+approve|disapprove|My parents ___ of smoking.|не одобрять
+punish|punishment|The teacher said the ___ was too strict.|наказание
+organize|organization|Good ___ helps a team work efficiently.|организация
+risk|risky|Climbing that mountain alone is very ___.|рискованный
+main|mainly|The village is ___ known for its beautiful lake.|главным образом
+symbol|symbolic|The gift had a special ___ meaning.|символический
+especial|especially|I love this city, ___ in the summer.|особенно
+response|responsible|Children should learn to be ___ for their actions.|ответственный
+lead|leader|She became the ___ of the school debate club.|лидер
+surprise|surprising|The result of the match was very ___.|удивительный
+surprise|surprisingly|___, nobody knew the answer to the question.|удивительно
+spice|spicy|This soup is too ___ for me.|острый
+invent|inventor|The ___ showed us his new machine.|изобретатель
+visit|visitor|Every ___ received a free map of the museum.|посетитель
+translate|translation|The ___ of this poem is very beautiful.|перевод
+learn|learner|This dictionary is useful for every English ___.|учащийся
+music|musician|The young ___ played the piano beautifully.|музыкант
+music|musical|She has always been a very ___ child.|музыкальный
+loud|loudly|The baby cried ___ in the middle of the night.|громко
+vary|various|The library offers books on ___ topics.|разные
+ride|rider|The horse ___ wore a protective helmet.|наездник
+create|creative|She found a very ___ solution to the problem.|творческий
+create|creativity|Art lessons help children develop their ___.|творчество
+mean|meaning|Do you know the ___ of this expression?|значение
+mean|meaningful|The conversation was short but ___.|значимый
+locate|location|The hotel's ___ is perfect for tourists.|местоположение
+champion|championship|The team won the national ___.|чемпионат
+fair|unfair|It is ___ to blame only one person for the mistake.|несправедливо
+play|player|He is the youngest ___ on our team.|игрок
+sing|singer|Her dream is to become a famous ___.|певец
+culture|cultural|The festival includes many ___ events.|культурный
+write|writer|The ___ published her first novel at the age of twenty.|писатель
+comfort|comfortable|These chairs are surprisingly ___.|удобный
+comfort|uncomfortable|The old sofa was so ___ that nobody wanted to sit on it.|неудобный
+kind|kindness|The old woman thanked us for our ___.|доброта
+support|supporter|He has been a ___ of the local team for years.|сторонник
+change|changeable|The weather here is very ___ in spring.|изменчивый
+population|populate|Many animals ___ the forests of the region.|населять
+sleep|sleepy|I always feel ___ after a big lunch.|сонный
+cheer|cheerful|The little girl had a bright, ___ smile.|весёлый
+connect|connection|The internet ___ was too slow for the video call.|соединение
+arrive|arrival|We were waiting for the ___ of the train.|прибытие
+bore|boring|The lecture was so ___ that I nearly fell asleep.|скучный
+bore|bored|The children felt ___ during the long journey.|скучающий
+climb|climber|The experienced ___ reached the top at sunrise.|альпинист
+dance|dancer|She is the best ___ in our school.|танцор
+definite|definitely|I will ___ come to your birthday party.|определённо
+desert|deserted|The streets were ___ early on Sunday morning.|пустынный
+england|english|Our ___ teacher lived in London for five years.|английский
+environment|environmental|We discussed ___ problems in our geography class.|экологический
+farm|farmer|The ___ grows vegetables and keeps sheep.|фермер
+fish|fishing|My dad goes ___ every weekend in summer.|рыбалка
+glad|gladly|She ___ agreed to help with the school event.|с радостью
+know|knowledge|The quiz tested our ___ of world history.|знания
+lonely|loneliness|Moving away from friends can cause ___.|одиночество
+paint|painter|The ___ displayed his pictures in a small gallery.|художник
+politics|politician|The ___ answered questions from journalists.|политик
+proper|properly|Make sure you have ___ closed all the windows.|правильно
+safe|safety|Road ___ is taught at our school.|безопасность
+swim|swimmer|The young ___ won three medals at the competition.|пловец
+technology|technological|The company invests in ___ innovation.|технологический
+travel|traveller|The ___ shared stories about his adventures.|путешественник
+turkey|turkish|We tried ___ food during our holiday.|турецкий
+`;
+window.SENTENCE_TASKS = taskText.trim().split('\n').map((line, i) => {
+  const [base, answer, sentence, ru] = line.split('|');
+  return {id:i+1, base, answer, sentence, ru};
+}).filter(q => window.WORD_FAMILIES.some(f => f.forms.some(w => w.en.toLowerCase() === q.answer.toLowerCase())));
+
+(() => {
+  'use strict';
+  const families = window.WORD_FAMILIES || [];
+  const sentences = window.SENTENCE_TASKS || [];
+  const dictionary = families.flatMap(f => f.forms.map(w => ({...w, familyId:f.id, root:f.root})));
+  const total = dictionary.length;
+  const proper = new Set(['russia','russian','england','english','italy','italian','turkey','turkish']);
+  const displayEn = word => proper.has(String(word).toLowerCase()) ? String(word).charAt(0).toUpperCase()+String(word).slice(1) : String(word);
+  const KEY = 'wordup-oge-progress-v1';
+  const main = document.getElementById('mainView');
+  const rail = document.getElementById('rightRail');
+  const toastEl = document.getElementById('toast');
+  const $ = id => document.getElementById(id);
+  const escape = x => String(x ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const random = xs => [...xs].sort(() => Math.random() - .5); // used only for display order
+  const unique = arr => [...new Set(arr)];
+  const clamp = (x,a,b) => Math.max(a,Math.min(b,x));
+  const percent = (n,all) => all ? Math.round(100*n/all) : 0;
+  const dateKey = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  const today = () => dateKey(new Date());
+  const read = () => { try {return JSON.parse(localStorage.getItem(KEY) || '{}') || {}} catch {return {}} };
+  const stored = read();
+  let progress = {
+    known: Array.isArray(stored.known)?unique(stored.known):[], xp: Number(stored.xp)||0,
+    attempts:Number(stored.attempts)||0, correct:Number(stored.correct)||0,
+    translationAttempts:Number(stored.translationAttempts)||0, translationCorrect:Number(stored.translationCorrect)||0,
+    sentenceAttempts:Number(stored.sentenceAttempts)||0, sentenceCorrect:Number(stored.sentenceCorrect)||0,
+    history: Array.isArray(stored.history)?stored.history:[]
+  };
+  let ui = {view:'home', filter:'all', query:'', visible:12, deck:[], flashIndex:0, flipped:false,
+    flashKnown:0, quiz:[], quizIndex:0, quizMode:'translate', direction:'en-ru', locked:false,
+    chosen:'', quizCorrect:0, answer:'', hint:false, checkedCorrect:false};
+  const save = () => { try {localStorage.setItem(KEY, JSON.stringify(progress))} catch {} };
+  const level = () => progress.xp >= 2500 ? ['Легенда','💎'] : progress.xp >= 900 ? ['Эксперт','🏆'] : progress.xp >= 300 ? ['Исследователь','🚀'] : ['Новичок','⭐'];
+  const todayDone = () => progress.history.filter(h => h.date === today() && h.correct).length;
+  const streak = () => {
+    const days = new Set(progress.history.filter(h=>h.correct).map(h=>h.date));
+    const d = new Date();
+    if (!days.has(dateKey(d))) d.setDate(d.getDate()-1);
+    let n=0;
+    for(; n<366 && days.has(dateKey(d));n++) d.setDate(d.getDate()-1);
+    return n;
+  };
+  const badges = () => [
+    {emoji:'🌟',title:'Первый шаг',desc:'Ответь правильно впервые',unlocked:progress.correct>=1},
+    {emoji:'📚',title:'Знаток слов',desc:'Выучи 10 слов',unlocked:progress.known.length>=10},
+    {emoji:'⚡',title:'100 XP',desc:'Заработай 100 очков',unlocked:progress.xp>=100},
+    {emoji:'🧠',title:'Мастер ОГЭ',desc:'Реши 25 предложений',unlocked:progress.sentenceCorrect>=25},
+    {emoji:'🔥',title:'7 дней',desc:'Занимайся 7 дней подряд',unlocked:streak()>=7},
+    {emoji:'🏅',title:'Словарный герой',desc:'Выучи 100 слов',unlocked:progress.known.length>=100}
+  ];
+  function activity(mode, correct, xp = 0) {
+    progress.attempts++; if(correct) progress.correct++;
+    if (mode==='translate') {progress.translationAttempts++; if(correct)progress.translationCorrect++}
+    if (mode==='sentences') {progress.sentenceAttempts++; if(correct)progress.sentenceCorrect++}
+    progress.xp+=xp;
+    progress.history.push({date:today(), mode, correct});
+    if(progress.history.length>3500)progress.history=progress.history.slice(-3500);
+    save();
+  }
+  function toast(text) {
+    toastEl.textContent=text; toastEl.classList.add('visible');
+    clearTimeout(toastEl._hide);toastEl._hide=setTimeout(()=>toastEl.classList.remove('visible'),2400);
+  }
+  function familyById(id) {return families.find(f=>f.id===Number(id))}
+  function familyByWord(word) {return families.find(f=>f.forms.some(w=>w.en.toLowerCase()===word.toLowerCase()))}
+  function renderNav(){
+    document.querySelectorAll('[data-view]').forEach(b => b.classList.toggle('active', b.dataset.view===ui.view));
+  }
+  function renderRail() {
+    const [rank, rankEmoji]=level();
+    const known=progress.known.length, day=clamp(todayDone(),0,10), b=badges();
+    rail.innerHTML=`
+      <div class="rail-intro"><span class="rail-greeting">✦ ТВОЙ ЛИЧНЫЙ РЕЗУЛЬТАТ</span><h3>Каждый день —<br>новая победа!</h3><div class="rail-streak"><div><small>Твоя серия</small><strong>${streak()} ${streak()===1?'день':'дней'}</strong></div><span class="fire">🔥</span></div></div>
+      <div class="rail-panel"><h3 class="rail-title">Мой уровень</h3><div class="rail-stats"><div class="rail-stat"><span class="rail-stat-icon">${rankEmoji}</span><div><small>Уровень</small><b>${rank}</b></div></div><div class="rail-stat"><span class="rail-stat-icon">✨</span><div><small>Очки</small><b>${progress.xp} XP</b></div></div></div><div class="rail-meta"><span>Изучено слов</span><strong>${known} из ${total}</strong></div><div class="progress-track"><div class="progress-fill" style="width:${percent(known,total)}%"></div></div><p class="rail-sub">${percent(known,total)}% словаря уже знакомы тебе</p><div class="daily-goal"><div class="daily-goal-top"><span>☀️ Цель на сегодня</span><span>${day}/10</span></div><div class="progress-track daily-progress"><div class="progress-fill" style="width:${day*10}%"></div></div></div></div>
+      <div class="rail-panel"><div class="section-heading" style="margin:0 0 13px"><h2 style="font-size:14px">Мои достижения</h2><button data-view="progress">Все</button></div><div class="badges-row">${b.slice(0,3).map(x=>`<div class="badge-item ${x.unlocked?'':'locked'}"><div class="badge-shape">${x.emoji}</div><small>${escape(x.title)}</small></div>`).join('')}</div></div>
+      <div class="rail-note"><span>🔒</span><div>Твои ответы и прогресс сохраняются на этом устройстве, без регистрации и сервера.</div></div>`;
+  }
+  const getSuggested = () => ['danger','success','friend','happy','science','regular'].map(w=>families.find(f=>f.root===w)).filter(Boolean);
+  function miniFamily(f) {
+    return `<article class="family-card"><div class="family-card-header"><div><h3 class="family-name">${escape(displayEn(f.root))}</h3><p class="family-ru">${escape(f.ru)}</p></div><button class="small-round" data-action="family" data-id="${f.id}" aria-label="Учить ${escape(displayEn(f.root))}">›</button></div><div class="family-tags">${f.forms.slice(1,4).map((w,i)=>`<span class="word-tag ${i%3===1?'yellow':''}" title="${escape(w.ru)}">${escape(displayEn(w.en))}</span>`).join('')}${f.forms.length>4?`<span class="word-tag more">+${f.forms.length-4}</span>`:''}</div></article>`;
+  }
+  function renderHome() {
+    const known=progress.known.length;
+    return `<p class="greeting">Привет, исследователь! 👋</p><h1 class="welcome-title">Готов к новым <span class="marker">словам?</span></h1>
+    <section class="hero"><div class="hero-copy"><span class="hero-pill">✦ ТРЕНАЖЁР СЛОВООБРАЗОВАНИЯ ОГЭ</span><h2>Учить слова<br>может быть весело!</h2><p>Изучай переводы, собирай семейства слов и побеждай в заданиях. Ты уже знаешь ${known} из ${total} слов!</p><button class="btn btn-yellow" data-action="start-learn">Начать учить <span>↗</span></button></div><img class="hero-art" src="assets/hero.svg" alt="Ученик читает книгу, вокруг яркие звёзды и кубики"></section>
+    <div class="section-heading"><h2>Выбери свою тренировку ✨</h2></div>
+    <div class="quick-grid"><button class="quick-card purple" data-action="start-learn"><span class="quick-emoji">🗂️</span><strong>Карточки</strong><small>Запомни слово и его перевод</small><span class="quick-arrow">↗</span></button><button class="quick-card yellow" data-action="start-translate"><span class="quick-emoji">💬</span><strong>Переводы</strong><small>Проверь себя в мини-викторине</small><span class="quick-arrow">↗</span></button><button class="quick-card blue" data-action="start-sentences"><span class="quick-emoji">✏️</span><strong>Предложения</strong><small>Тренируй словообразование ОГЭ</small><span class="quick-arrow">↗</span></button></div>
+    <div class="section-heading"><h2>Семейства слов <span class="chip-count">${families.length}</span></h2><button data-view="dictionary">Весь словарь ↗</button></div><div class="family-grid">${getSuggested().map(miniFamily).join('')}</div>
+    <div class="privacy-note" style="margin-top:19px">💡 <b>Как лучше учить?</b> Сначала посмотри карточки, затем проверь переводы и закрепи слова в предложениях. Так ты тренируешь и память, и навыки ОГЭ.</div>`;
+  }
+  function progressStrips(index, count, yellow=false){return Array.from({length:count},(_,i)=>`<span class="${i<index?'done':i===index?'active':''}" style="${i<index&&yellow?'background:#ffdc4e':''}"></span>`).join('')}
+  function startLearn(family=null) {
+    const all = family ? family.forms.map(w=>({...w, familyId:family.id, root:family.root})) : dictionary;
+    const unknown = all.filter(w=>!progress.known.includes(w.en));
+    ui.deck = (family?all:random(unknown.length>=8?unknown:all)).slice(0, family ? all.length : 12);
+    ui.flashIndex=0;ui.flipped=false;ui.flashKnown=0;ui.view='learn'; render();
+  }
+  function renderLearn(){
+    if(!ui.deck.length){return `<div class="empty-state"><b>Пока нет слов для изучения</b>Загляни в словарь, чтобы выбрать семейство.</div>`}
+    if(ui.flashIndex>=ui.deck.length)return renderResult('learn');
+    const w=ui.deck[ui.flashIndex],family=familyById(w.familyId);
+    const known=progress.known.includes(w.en);
+    const example=sentences.find(q=>q.answer===w.en);
+    return `<div class="page-heading"><div><span class="kicker">01 / УЧИМ СЛОВА</span><h1>Карточки для запоминания 🗂️</h1><p>Сначала вспомни перевод сам, потом открой ответ. Отмечай слова, которые уже знаешь.</p></div><button class="back-button" data-view="home" title="Главная">‹</button></div>
+    <div class="study-counter"><span>Карточка ${ui.flashIndex+1} из ${ui.deck.length}</span><div class="seg-progress">${progressStrips(ui.flashIndex,ui.deck.length)}</div></div>
+    <div class="study-card"><div class="study-label">${ui.flipped?'Вот и перевод!':'Как переводится это слово?'}</div><div class="study-word">${escape(displayEn(w.en))}</div><button class="btn btn-ghost" data-action="speak" data-word="${escape(displayEn(w.en))}" title="Произнести слово">🔊 Произнести</button>
+    ${ui.flipped?`<div class="study-translation">${escape(w.ru)}</div>`:`<button class="study-reveal" data-action="flip">Показать перевод ↗</button>`}
+    <div class="study-helper">${known?'✓ Это слово уже отмечено как изученное':'Нажми, чтобы проверить себя'} · семейство ${escape(family?.root || w.root)}</div></div>
+    <div class="study-controls"><button class="btn btn-ghost btn-large" data-action="flash-next" data-result="repeat">↶ Ещё повторю</button><button class="btn btn-yellow btn-large" data-action="flash-next" data-result="known">✓ Знаю слово</button></div>
+    <div class="family-context"><h3>🌱 Семейство ${escape(family?.root||w.root)}</h3><div class="family-forms">${family.forms.map(v=>`<span class="family-form"><strong>${escape(displayEn(v.en))}</strong> · ${escape(v.ru)}</span>`).join('')}</div>${example?`<p class="dictionary-note" style="margin-bottom:0">Пример: ${escape(example.sentence.replace('___',w.en))}</p>`:''}</div>`;
+  }
+  function startQuiz(mode) {
+    ui.quizMode=mode;ui.quizIndex=0;ui.quizCorrect=0;ui.locked=false;ui.chosen='';ui.hint=false;ui.answer='';ui.checkedCorrect=false;
+    if(mode==='translate'){
+      const terms=random(dictionary.filter(w=>w.en.length>2)).slice(0,12);
+      ui.quiz=terms.map(w=>{
+        const correct=ui.direction==='en-ru'?w.ru:w.en;
+        const choices=unique([correct,...random(dictionary.filter(t=>t.en!==w.en).map(t=>ui.direction==='en-ru'?t.ru:t.en)).filter(v=>v!==correct)]).slice(0,4);
+        return {...w, correct, choices:random(choices)};
+      });
+      ui.view='translate';
+    }else{
+      ui.quiz=random(sentences).slice(0,12);ui.view='sentences';
+    }
+    render();
+  }
+  function renderQuiz(){
+    const isSentences=ui.view==='sentences',title=isSentences?'Практика в предложениях':'Проверка переводов';
+    if(!ui.quiz.length){return `<div class="empty-state"><b>Нет заданий</b>Проверь, загружен ли словарь.</div>`}
+    if(ui.quizIndex>=ui.quiz.length)return renderResult(isSentences?'sentences':'translate');
+    const q=ui.quiz[ui.quizIndex], n=ui.quiz.length;
+    const question=isSentences?`${escape(q.sentence).replace('___',`<span class="blank">${ui.locked?escape(q.answer):'______'}</span>`)}`:escape(ui.direction==='en-ru'?displayEn(q.en):q.ru);
+    const prompt=isSentences?'Образуй нужное слово и вставь в пропуск':ui.direction==='en-ru'?'Выбери правильный перевод':'Выбери английское слово';
+    const modeControls=!isSentences?`<div class="mode-switch"><button class="chip ${ui.direction==='en-ru'?'active':''}" data-action="direction" data-direction="en-ru">EN → RU</button><button class="chip ${ui.direction==='ru-en'?'active':''}" data-action="direction" data-direction="ru-en">RU → EN</button></div>`:`<div class="mode-lead"><span>🎓</span><div><strong>Формат задания ОГЭ</strong><small>Измени слово из рамки. Напиши ответ без пробелов.</small></div></div>`;
+    const feedback=ui.locked?`<div class="feedback ${ui.checkedCorrect?'correct':'wrong'}">${ui.checkedCorrect?'✓ Верно! Отличная работа.':`Правильный ответ: <strong>${escape(isSentences?displayEn(q.answer):(ui.direction==='ru-en'?displayEn(q.correct):q.correct))}</strong>`}${isSentences?`<br>Перевод слова: ${escape(q.ru)}`:''}</div>`:'';
+    const choices=!isSentences?`<div class="options">${q.choices.map((c,i)=>`<button class="answer-option ${ui.locked?(c===q.correct?'correct':ui.chosen===c?'wrong':''):''}" ${ui.locked?'disabled':''} data-action="choose" data-choice="${escape(c)}"><span class="letter">${'ABCD'[i]}.</span>${escape(ui.direction==='ru-en'?displayEn(c):c)}</button>`).join('')}</div>`:
+      `<form class="answer-form" id="answerForm"><input class="answer-input" id="sentenceInput" name="answer" placeholder="Напиши слово на английском..." aria-label="Твоя форма слова" autocapitalize="off" autocomplete="off" spellcheck="false" ${ui.locked?'disabled':''} value="${escape(ui.answer)}"><button class="btn btn-yellow" type="submit" ${ui.locked?'disabled':''}>Проверить ↗</button></form>${!ui.locked?`<div class="quiz-hint">${ui.hint?'Подсказка: первая буква — '+escape(q.answer[0].toUpperCase())+'.':''} <button class="tiny-link" style="color:white" data-action="hint">${ui.hint?'':'Нужна подсказка?'}</button></div>`:''}`;
+    return `<div class="page-heading"><div><span class="kicker">${isSentences?'03 / ПРАКТИКУЕМ':'02 / ПРОВЕРЯЕМ'}</span><h1>${title} ${isSentences?'✏️':'💬'}</h1><p>${isSentences?'Выбирай правильную форму слова по контексту, как на настоящем экзамене.':'Запоминай переводы в обе стороны: с английского на русский и обратно.'}</p></div><button class="back-button" data-view="home" title="Главная">‹</button></div>${modeControls}
+    <div class="quiz-card"><div class="quiz-topline"><span>${String(ui.quizIndex+1).padStart(2,'0')} / ${String(n).padStart(2,'0')} Вопрос</span><span class="muted-white">${ui.quizIndex+1} из ${n}</span></div><div class="quiz-segments">${progressStrips(ui.quizIndex,n,true)}</div><div class="quiz-card-inner"><div class="quiz-icon">${isSentences?'📝':'🌟'}</div><div class="quiz-prompt">${escape(prompt)}</div><h2 class="quiz-question">${question}</h2>${isSentences?`<div class="quiz-root">${escape(q.base.toUpperCase())}</div>`:`<div class="quiz-translation">${ui.direction==='en-ru'?'Знаешь это слово?':'Вспомни английский эквивалент.'}</div>`}${choices}${feedback}</div><div class="quiz-bottom"><span class="quiz-score">⭐ ${ui.quizCorrect} правильных</span>${ui.locked?`<button class="btn btn-yellow" data-action="quiz-next">${ui.quizIndex===n-1?'Результаты':'Далее'} <span>›</span></button>`:isSentences?`<button class="tiny-link" style="color:white" data-action="skip">Пропустить →</button>`:`<span class="quiz-score">Выбери вариант ответа</span>`}</div></div>`;
+  }
+  function renderResult(mode){
+    const learn=mode==='learn', count=learn?ui.deck.length:ui.quiz.length, score=learn?ui.flashKnown:ui.quizCorrect;
+    const message=learn?'Повтори сложные слова и переходи к викторине — так знания закрепятся лучше.':score>=10?'Невероятно! Отлично справился с тренировкой.':score>=6?'Хорошая работа! Ещё немного практики — и будет ещё лучше.':'Ошибки помогают учиться. Посмотри слова и попробуй ещё раз.';
+    return `<div class="page-heading"><div><span class="kicker">ТВОЙ РЕЗУЛЬТАТ</span><h1>Тренировка завершена!</h1></div><button class="back-button" data-view="home">‹</button></div><div class="quiz-result"><div class="result-emoji">${score>=count-2?'🏆':score>=Math.floor(count/2)?'🥳':'🌻'}</div><h2>${learn?'Слова повторены!':'Так держать!'}</h2><div class="result-score">${score}<span> / ${count}</span></div><p>${message}</p><div class="result-actions"><button class="btn btn-yellow btn-large" data-action="${learn?'start-learn':mode==='translate'?'start-translate':'start-sentences'}">Попробовать ещё ↻</button><button class="btn btn-ghost btn-large" data-view="home">На главную</button></div></div>`;
+  }
+  const filters=[['all','Все слова'],['adverbs','Наречия'],['negative','Отрицания'],['people','Профессии'],['nouns','Существительные']];
+  function matchesFilter(f){
+    if(ui.filter==='all')return true;
+    const derived=f.forms.filter(w=>w.en!==f.root);
+    if(ui.filter==='adverbs')return derived.some(w=>w.en.endsWith('ly')&&!['friendly','lovely','daily'].includes(w.en));
+    if(ui.filter==='negative')return derived.some(w=>/^(un|im|in|ir|dis)/.test(w.en)&&!['international','information','interesting','industry','invention','inventor'].includes(w.en)||w.en.endsWith('less'));
+    if(ui.filter==='people')return derived.some(w=>/(er|or|ist|ian|ician)$/.test(w.en)&&!/^(better|later)$/.test(w.en));
+    if(ui.filter==='nouns')return derived.some(w=>/(tion|ment|ness|ity|ship|ance|ence|ion)$/.test(w.en));
+    return true;
+  }
+  function filteredFamilies(){const query=ui.query.toLocaleLowerCase('ru').trim();return families.filter(f=>matchesFilter(f)&&(!query||f.root.includes(query)||f.ru.toLocaleLowerCase('ru').includes(query)||f.forms.some(w=>w.en.includes(query)||w.ru.toLocaleLowerCase('ru').includes(query))))}
+  function listHTML(){
+    const values=filteredFamilies();
+    return `<div class="dictionary-stats" id="foundCount">Показано ${Math.min(values.length,ui.visible)} из ${values.length} семейств · ${total} словоформ в базе</div><div class="family-grid" id="familyResults">${values.slice(0,ui.visible).map(miniFamily).join('')||'<div class="empty-state"><b>Слов не нашлось</b>Попробуй другой запрос или выбери другую категорию.</div>'}</div>${values.length>ui.visible?`<button class="btn btn-ghost load-more" data-action="load-more">Показать ещё ↓</button>`:''}`;
+  }
+  function renderDictionary(){
+    return `<div class="page-heading"><div><span class="kicker">ТВОЯ БИБЛИОТЕКА</span><h1>Словарь словообразования 📖</h1><p>${families.length} семейств слов из двух учебных материалов для подготовки к ОГЭ. Выбирай тему, учи формы и переводы.</p></div><button class="back-button" data-view="home">‹</button></div><div class="dictionary-tools"><input class="dictionary-search" id="dictionarySearch" type="search" autocomplete="off" placeholder="🔎 Поиск на английском или русском..." value="${escape(ui.query)}"></div><div class="chips">${filters.map(([id,name])=>`<button class="chip ${ui.filter===id?'active':''}" data-action="filter" data-filter="${id}">${name}</button>`).join('')}</div><div id="dictionaryContent">${listHTML()}</div><p class="dictionary-note">Источники: «Wordbuilding 2025» и «ОГЭ Словообразование». Для удобства изучения явные опечатки в оригинальных таблицах нормализованы.</p>`;
+  }
+  function renderProgress(){
+    const [rank]=level(), acc=percent(progress.correct,progress.attempts),b=badges();
+    const metrics=[['📚',progress.known.length,'Слов изучено'],['✨',progress.xp,'Очков XP'],['🎯',`${acc}%`,'Точность ответов'],['📝',progress.sentenceCorrect,'Верных предложений']];
+    return `<div class="page-heading"><div><span class="kicker">ТВОИ ДОСТИЖЕНИЯ</span><h1>Мой прогресс 🏆</h1><p>Наблюдай, сколько слов ты выучил и как растёт твоя уверенность в английском.</p></div><button class="back-button" data-view="home">‹</button></div><div class="progress-hero"><div><div class="super-label">ТВОЙ ТЕКУЩИЙ УРОВЕНЬ</div><h2>${rank}</h2><p>Впереди ещё много интересных открытий!</p></div><span class="trophy">🏆</span></div><div class="stats-grid">${metrics.map(([icon,n,text])=>`<div class="stat-block"><div class="stat-icon">${icon}</div><div class="stat-value">${n}</div><div class="stat-name">${text}</div></div>`).join('')}</div><div class="big-progress"><h3>🚀 Освоение словаря</h3><div class="rail-meta"><span>Изучено</span><strong>${progress.known.length} / ${total}</strong></div><div class="progress-track"><div class="progress-fill" style="width:${percent(progress.known.length,total)}%"></div></div><p>Переводы: ${progress.translationCorrect} из ${progress.translationAttempts} · Предложения: ${progress.sentenceCorrect} из ${progress.sentenceAttempts}</p></div><div class="section-heading"><h2>Коллекция значков</h2><span class="muted" style="font-size:12px">${b.filter(x=>x.unlocked).length} из ${b.length}</span></div><div class="badges-grid">${b.map(x=>`<div class="badge-tile ${x.unlocked?'':'locked'}"><div class="badge-shape">${x.unlocked?x.emoji:'🔒'}</div><strong>${escape(x.title)}</strong><small>${escape(x.desc)}</small></div>`).join('')}</div><div class="privacy-note">🔒 <strong>Приватно.</strong> Данные сохраняются только в памяти этого браузера. Если очистить данные сайта или открыть его на другом устройстве, прогресс не перенесётся. Учётных записей и общего рейтинга нет.</div><button class="reset-btn" data-action="reset">Сбросить мой прогресс</button>`;
+  }
+  function render(){
+    if(!families.length){main.innerHTML='<div class="empty-state"><b>Не удалось загрузить словарь.</b>Обнови страницу.</div>';return}
+    renderNav();renderRail();
+    main.innerHTML=ui.view==='home'?renderHome():ui.view==='learn'?renderLearn():ui.view==='dictionary'?renderDictionary():ui.view==='progress'?renderProgress():renderQuiz();
+  }
+  function view(v){
+    if(!['home','learn','translate','sentences','dictionary','progress'].includes(v))v='home';
+    if(v==='learn')return startLearn();
+    if(v==='translate')return startQuiz('translate');
+    if(v==='sentences')return startQuiz('sentences');
+    ui.view=v;render();window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function checkSentence(input){
+    if(ui.locked)return;
+    const q=ui.quiz[ui.quizIndex];
+    const answer=(input||'').trim().toLowerCase().replace(/[.!?]+$/,'');
+    if(!answer){toast('Сначала введи слово ✎');return}
+    ui.answer=input;ui.checkedCorrect=answer===q.answer.toLowerCase();ui.chosen=answer;ui.locked=true;
+    if(ui.checkedCorrect)ui.quizCorrect++;
+    activity('sentences',ui.checkedCorrect,ui.checkedCorrect?(ui.hint?6:12):0);
+    render();
+  }
+  function chooseTranslation(choice){
+    if(ui.locked)return;
+    const q=ui.quiz[ui.quizIndex];ui.chosen=choice;ui.checkedCorrect=choice===q.correct;ui.locked=true;
+    if(ui.checkedCorrect)ui.quizCorrect++;
+    activity('translate',ui.checkedCorrect,ui.checkedCorrect?10:0);render();
+  }
+  function doAction(e){
+    const node=e.target.closest('[data-action],[data-view]');if(!node)return;
+    if(node.dataset.view){e.preventDefault();view(node.dataset.view);return}
+    const action=node.dataset.action;
+    if(action==='start-learn')startLearn();
+    if(action==='start-translate')startQuiz('translate');
+    if(action==='start-sentences')startQuiz('sentences');
+    if(action==='family'){const f=familyById(node.dataset.id);if(f)startLearn(f)}
+    if(action==='flip'){ui.flipped=true;render()}
+    if(action==='flash-next'){
+      const w=ui.deck[ui.flashIndex];
+      if(node.dataset.result==='known'){
+        ui.flashKnown++;
+        if(!progress.known.includes(w.en)){progress.known.push(w.en);progress.xp+=5;save()}
+        activity('learn',true,0);
+      }
+      ui.flashIndex++;ui.flipped=false;render();
+    }
+    if(action==='speak'){
+      if('speechSynthesis' in window){const u=new SpeechSynthesisUtterance(node.dataset.word);u.lang='en-GB';u.rate=.86;window.speechSynthesis.cancel();window.speechSynthesis.speak(u)}
+      else toast('В этом браузере нет озвучивания слов');
+    }
+    if(action==='direction'){
+      if(ui.direction!==node.dataset.direction){ui.direction=node.dataset.direction;startQuiz('translate')}
+    }
+    if(action==='choose')chooseTranslation(node.dataset.choice);
+    if(action==='quiz-next'){
+      ui.quizIndex++;ui.locked=false;ui.chosen='';ui.answer='';ui.hint=false;ui.checkedCorrect=false;render();
+      const input=$('sentenceInput');if(input)input.focus();
+    }
+    if(action==='skip'){
+      if(ui.locked)return;
+      ui.answer='';ui.chosen='';ui.locked=true;ui.checkedCorrect=false;activity('sentences',false,0);render();
+    }
+    if(action==='hint'){ui.hint=true;render();const el=$('sentenceInput');if(el)el.focus()}
+    if(action==='filter'){ui.filter=node.dataset.filter;ui.visible=12;render()}
+    if(action==='load-more'){ui.visible+=12;render()}
+    if(action==='reset'){
+      if(confirm('Сбросить все выученные слова, очки и историю? Действие нельзя отменить.')){
+        progress={known:[],xp:0,attempts:0,correct:0,translationAttempts:0,translationCorrect:0,sentenceAttempts:0,sentenceCorrect:0,history:[]};save();render();toast('Прогресс сброшен');
+      }
+    }
+  }
+  document.addEventListener('click',doAction);
+  document.addEventListener('submit',e=>{if(e.target.id==='answerForm'){e.preventDefault();checkSentence($('sentenceInput')?.value)}});
+  document.addEventListener('input',e=>{
+    if(e.target.id==='dictionarySearch'){
+      ui.query=e.target.value;ui.visible=12;
+      const zone=$('dictionaryContent');if(zone)zone.innerHTML=listHTML();
+    }
+  });
+  const globalSearch=$('globalSearch');
+  globalSearch?.addEventListener('keydown',e=>{if(e.key==='Enter'){
+    ui.query=globalSearch.value.trim();ui.filter='all';ui.visible=12;view('dictionary');
+    const input=$('dictionarySearch');if(input){input.focus();input.setSelectionRange(input.value.length,input.value.length)}
+  }});
+  window.addEventListener('hashchange',()=>{
+    const hash=location.hash.replace('#','');if(hash && hash!==ui.view)view(hash);
+  });
+  const initial=location.hash.replace('#','');if(initial && initial!=='home')view(initial);else render();
+})();
+
+</script>
+</body>
+</html>
